@@ -1,15 +1,17 @@
-Project Name: <Your Project Name>
 
-Description:
-SignalR-Course
+# SignalR-NetCore-6
 
-Features:
-- Utilizes SignalR for real-time communication.
-- Developed using .NET Core 6.
+This project is a web application developed with .NET Core 6 and utilizes SignalR for real-time communication. It provides a platform for QR Menu.
 
-Usage:
-<Instructions on how to use the project, including installation steps, configuration, and examples.>
 
-Contributing:
-<Information for contributors on how to contribute to the project, such as guidelines for pull requests, coding standards, etc.>
+## Same Core Projects
 
+[BlogPage](https://github.com/fleizean/ASP.Net-BlogPageProject)
+[OnePageCV](https://github.com/fleizean/ASP.Net-One-Page-CV-Project)
+
+  
+## Ekran Görüntüleri
+
+![Soon](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+  
