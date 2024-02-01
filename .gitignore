@@ -97,6 +97,9 @@ StyleCopReport.xml
 *.tlog
 *.vspscc
 *.vssscc
+.DS_Store
+**/.DS_Store
+*/.DS_Store
 .builds
 *.pidb
 *.svclog
