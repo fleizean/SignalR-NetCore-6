@@ -8,7 +8,14 @@ namespace SignalR.DataAccessLayer.Concrete
 	{
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=localhost;database=SealingsProjectDBNew;User=SA; Password=reallyStrongPwd123"); // bağlantıyı tutan yapı
+            optionsBuilder.UseSqlServer("server=localhost;database=SignalRDB;User=SA; Password=reallyStrongPwd123"); // bağlantıyı tutan yapı
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18, 2)");
         }
 
         public DbSet<About> Abouts { get; set; }
