@@ -6,10 +6,10 @@ namespace SignalR.EntityLayer.Entities
 	public class Discount
 	{
 		public int DiscountID { get; set; }
-		public int ProductID { get; set; }
 		public string Amount { get; set; }
+		public int ProductID { get; set; }
 		public string Description { get; set; }
-		public int ImageUrl { get; set; }
+		public string ImageUrl { get; set; }
 		public bool Status { get; set; }
 
         [ForeignKey("ProductID")]

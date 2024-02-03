@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.DataAccessLayer.Repositories;
@@ -10,6 +11,12 @@ namespace SignalR.DataAccessLayer.EntityFramework
     {
         public EfDiscountDal(SignalRContext context) : base(context)
         {
+        }
+
+        public List<Discount> GetDiscountsWithProducts()
+        {
+            var context = new SignalRContext();
+            return context.Discounts.Include(d => d.Product).ToList();
         }
     }
 }

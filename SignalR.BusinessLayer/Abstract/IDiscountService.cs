@@ -5,6 +5,7 @@ namespace SignalR.BusinessLayer.Abstract
 {
 	public interface IDiscountService : IGenericService<Discount>
     {
-	}
+        List<Discount> TGetDiscountsWithProducts();
+    }
 }
 

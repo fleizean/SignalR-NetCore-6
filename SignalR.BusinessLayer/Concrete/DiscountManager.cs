@@ -29,6 +29,11 @@ namespace SignalR.BusinessLayer.Concrete
             return _discountDal.GetById(id);
         }
 
+        public List<Discount> TGetDiscountsWithProducts()
+        {
+            return _discountDal.GetDiscountsWithProducts();
+        }
+
         public List<Discount> TGetListAll()
         {
             return _discountDal.GetListAll();
