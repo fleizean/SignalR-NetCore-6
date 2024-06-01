@@ -1,0 +1,78 @@
+@model List<SignalRWebUI.Dtos.FooterDtos.ResultFooterDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">Altbilgi</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Altbilgi Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Altbilgi işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Başlık</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Açık Günler</th>
+                                <th scope="col">Açık Saat Aralığı</th>
+                                <th scope="col">Durum</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0) {
+                                @foreach (var item in Model)
+                                    {
+                                    var shortDescription = item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description;
+                                    <tr>
+                                        <td>@item.FooterID</td>
+                                        <td>@item.Title</td>
+                                        <td>
+                                            <span id="shortDescription-@item.FooterID">@shortDescription</span>
+                                            @if (item.Description.Length > 15)
+                                            {
+                                                <a href="#" data-toggle="collapse" data-target="#fullDescription-@item.FooterID" aria-expanded="false" aria-controls="fullDescription-@item.FooterID">Daha fazla</a>
+                                            }
+                                            <div id="fullDescription-@item.FooterID" class="collapse">
+                                                @item.Description
+                                            </div>
+                                        </td>
+                                        <td style="color:orange">@item.OpeningDays</td>
+                                        <td style="color:blue">@item.OpeningTimes</td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:green">Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">Pasif</td>
+                                        }
+                                        <td><a href="/Footer/DeleteFooter/@item.FooterID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/Footer/UpdateFooter/@item.FooterID" class="btn btn-outline-success">Güncelle</a></td>
+                                    </tr>
+                                }
+                            }
+                            else {
+                            <tr>
+                                <td colspan="6" style="color: red; font-size:14px">Altbilgi yok veya db bağlantısı reddedildi.</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    <a href="/Footer/CreateFooter" class="btn btn-outline-primary">Altbilgi Ekle</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

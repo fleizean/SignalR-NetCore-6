@@ -1,0 +1,159 @@
+/*     Form     */
+
+.form-button-action {
+  display: inline-flex;
+}
+
+/*     CheckBox Input    */
+
+.select-all-checkbox + .form-check-sign:before {
+  background: #ccc !important;
+  border-color: #ccc !important;
+}
+
+/* checked mark aspect changes */
+
+/* disabled checkbox */
+
+/* accessibility */
+
+/* hover style just for information */
+
+.form-check-sign:hover:before {
+  border: 1px solid #ccc !important;
+}
+
+.form-check {
+  padding-left: 0.75rem;
+}
+
+.form-check-input {
+  position: relative;
+  margin-top: .3rem;
+}
+
+/*     Radio Input    */
+
+
+/* checked mark aspect changes */
+
+/* disabled radio */
+
+/* accessibility */
+
+.form-radio {
+  padding-left: 0.75rem;
+}
+
+.form-radio-input {
+  position: relative;
+  margin-top: .3rem;
+}
+
+/*     Input    */
+
+.form-group, .form-check {
+  margin-bottom: 0;
+  padding: 15px 10px;
+}
+
+.form-group label, .form-check label {
+  margin-bottom: .5rem !important;
+  color: #3f4047 !important;
+  font-weight: $font-weight-normal;
+  font-size: 1rem;
+}
+
+.form-inline label {
+  margin-bottom: 0 !important;
+}
+
+.input-fixed {
+  width: 200px;
+}
+
+.form-control.input-full {
+  width: 100% !important;
+}
+
+.has-success .form-control {
+  border-color: $success-color;
+  color: $success-color;
+}
+
+.has-error .form-control {
+  border-color: $danger-color;
+  color: $danger-color;
+}
+
+.has-feedback {
+  position: relative;
+}
+
+.form-control-feedback {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+}
+
+.has-success .form-control-feedback {
+  color: $success-color;
+}
+
+.has-error .form-control-feedback {
+  color: $danger-color;
+}
+
+.input-group {
+  &.has-icon {
+    border-radius: .25rem;
+    border: 1px solid #ced4da;
+  }
+  &.has-success, &.has-icon.has-success {
+    border-color: 1px solid $success-color !important;
+    color: $success-color;
+  }
+  &.has-error {
+    border: 1px solid $danger-color !important;
+    color: $danger-color;
+  }
+  &.has-icon {
+    &.has-error {
+      border: 1px solid $danger-color !important;
+      color: $danger-color;
+    }
+    .form-control {
+      border-radius: .25rem;
+      border: 0px;
+      position: relative;
+    }
+    .input-group-icon {
+      background: $transparent-bg;
+      border: 0px;
+    }
+  }
+}
+
+.input-square {
+  border-radius: 0px !important;
+}
+
+.input-pill {
+  border-radius: 1.3rem !important;
+}
+
+.input-solid {
+  background: #e8e8e8 !important;
+  border-color: #e8e8e8 !important;
+}
+
+.form-control {
+  &:disabled, &[readonly] {
+    background: #e8e8e8 !important;
+    border-color: #e8e8e8 !important;
+  }
+  &:disabled, &[readonly] {
+    opacity: 0.6 !important;
+  }
+}

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AboutDto\" />
+    <None Remove="BookingDto\" />
+    <None Remove="CategoryDto\" />
+    <None Remove="ContactDto\" />
+    <None Remove="DiscountDto\" />
+    <None Remove="FeatureDto\" />
+    <None Remove="ProductDto\" />
+    <None Remove="SocialMediaDto\" />
+    <None Remove="TestimonialDto\" />
+    <None Remove="FooterDto\" />
+    <None Remove="OrderDto\" />
+    <None Remove="OrderDetailDto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AboutDto\" />
+    <Folder Include="BookingDto\" />
+    <Folder Include="CategoryDto\" />
+    <Folder Include="ContactDto\" />
+    <Folder Include="DiscountDto\" />
+    <Folder Include="FeatureDto\" />
+    <Folder Include="ProductDto\" />
+    <Folder Include="SocialMediaDto\" />
+    <Folder Include="TestimonialDto\" />
+    <Folder Include="FooterDto\" />
+    <Folder Include="OrderDto\" />
+    <Folder Include="OrderDetailDto\" />
+  </ItemGroup>
+</Project>

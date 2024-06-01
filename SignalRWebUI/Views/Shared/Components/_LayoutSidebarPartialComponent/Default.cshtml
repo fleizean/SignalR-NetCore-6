@@ -1,0 +1,138 @@
+﻿@{
+    string ?currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    string ?currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<div class="sidebar">
+    <div class="sidebar-wrapper" style="overflow: auto !important; position: relative; z-index: 4; max-height: 650px;">
+        <div class="user">
+            <div class="photo">
+                <img src="~/Ready-Bootstrap-Dashboard-master/assets/img/profile.jpg">
+            </div>
+            <div class="info">
+                <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                    <span>
+                        Admin
+                        <span class="user-level">Administrator</span>
+                        <span class="caret"></span>
+                    </span>
+                </a>
+                <div class="clearfix"></div>
+
+                <div class="collapse in" id="collapseExample" aria-expanded="true" style="">
+                    <ul class="nav">
+                        <li>
+                            <a href="#profile">
+                                <span class="link-collapse">Menüyü Görüntüle</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#edit">
+                                <span class="link-collapse">Şifre Güncelle</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#settings">
+                                <span class="link-collapse">Ayarlar</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li class="nav-item @(currentController == "Dashboard" ? "active" : "")">
+                <a href="/Dashboard/Index">
+                    <i class="fa-solid fa-house"></i>
+                    <p>Ana Sayfa</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "" ? "active" : "")">
+                <a href="components.html">
+                    <i class="fa-solid fa-utensils"></i>
+                    <p>Menüyü Görüntüle</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Category" ? "active" : "")">
+                <a href="/Category/Index">
+                    <i class="fa-solid fa-table"></i>
+                    <p>Kategoriler</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Product" ? "active" : "")">
+                <a href="/Product/Index">
+                    <i class="fa-brands fa-product-hunt"></i>
+                    <p>Ürünler</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Booking" ? "active" : "")">
+                <a href="/Booking/Index">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                    <p>Rezervasyonlar</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "About" ? "active" : "")">
+                <a href="/About/Index">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <p>Hakkımızda</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Contact" ? "active" : "")">
+                <a href="/Contact/Index">
+                    <i class="fa-solid fa-comment"></i>
+                    <p>İletişim</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Discount" ? "active" : "")">
+                <a href="/Discount/Index">
+                    <i class="fa-solid fa-tag"></i>
+                    <p>İndirimler</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Feature" ? "active" : "")">
+                <a href="/Feature/Index">
+                    <i class="fa-solid fa-star"></i>
+                    <p>Öne Çıkanlar</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Testimonial" ? "active" : "")">
+                <a href="/Testimonial/Index">
+                    <i class="fa-solid fa-people-group"></i>
+                    <p>Referanslar</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "SocialMedia" ? "active" : "")">
+                <a href="/SocialMedia/Index">
+                    <i class="fa-solid fa-square-share-nodes"></i>
+                    <p>Sosyal Medya</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Footer" ? "active" : "")">
+                <a href="/Footer/Index">
+                    <i class="fa-solid fa-circle-down"></i>
+                    <p>Altbilgi</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "Statistic" ? "active" : "")">
+                <a href="/Statistic/Index">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <p>İstatistikler</p>
+                </a>
+            </li>
+            <li class="nav-item @(currentController == "" ? "active" : "")">
+                <a href="icons.html">
+                    <i class="fa-solid fa-gear"></i>
+                    <p>Ayarlar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="icons.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Çıkış Yap</p>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+</div>

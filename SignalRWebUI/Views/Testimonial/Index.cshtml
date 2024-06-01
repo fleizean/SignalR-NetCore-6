@@ -1,0 +1,107 @@
+﻿@model List<SignalRWebUI.Dtos.TestimonialDtos.ResultTestimonialDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">Referanslar</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Referans Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Referans işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Ad</th>
+                                <th scope="col">Başlık</th>
+                                <th scope="col">Yorum</th>
+                                <th scope="col">Puan</th>
+                                <th scope="col">Resim</th>
+                                <th scope="col">Durumu</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0) {
+                                @foreach (var item in Model)
+                                    {
+                                        var shortComment = item.Comment.Length > 15 ? item.Comment.Substring(0, 15) + "..." : item.Comment;
+                                    <tr>
+                                        <td>@item.TestimonialID</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Title</td>
+                                        <td>
+                                            <span id="shortComment-@item.TestimonialID">@shortComment</span>
+                                            @if (item.Comment.Length > 15)
+                                            {
+                                                <a href="#" data-toggle="collapse" data-target="#fullComment-@item.TestimonialID" aria-expanded="false" aria-controls="fullComment-@item.TestimonialID">Daha fazla</a>
+                                            }
+                                            <div id="fullComment-@item.TestimonialID" class="collapse">
+                                                @item.Comment
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @for(int i = 0; i < item.Rating; i++)
+                                            {
+                                                <i class="fas fa-star" style="color:green"></i>
+                                            }
+                                            @for(int i = 0; i < 5 - item.Rating; i++)
+                                            {
+                                                <i class="far fa-star" style="color:gray"></i>
+                                            }
+                                        </td>
+                                        <td><img src="@item.ImageUrl" class="tableModalImage" height="96" width="96" data-toggle="modal" data-target="#imageModal-@item.TestimonialID" style="cursor: pointer;" /></td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:green">Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">Pasif</td>
+                                        }
+                                        <td><a href="/Testimonial/DeleteTestimonial/@item.TestimonialID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/Testimonial/UpdateTestimonial/@item.TestimonialID" class="btn btn-outline-success">Güncelle</a></td>
+                                        <div class="modal fade" id="imageModal-@item.TestimonialID" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel-@item.TestimonialID" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="imageModalLabel-@item.TestimonialID">@item.Name</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" style="text-align:center; justify-content:center; align-item:center">
+                                                        <img src="@item.ImageUrl" class="img-fluid" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                }
+                            }
+                            else {
+                                <tr>
+                                    <td colspan="6" style="color: red; font-size:14px">Referans yok veya db bağlantısı reddedildi.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div style="display:flex; gap:5px;">
+                        <a href="/Testimonial/CreateTestimonial" class="btn btn-outline-primary">Referans Ekle</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

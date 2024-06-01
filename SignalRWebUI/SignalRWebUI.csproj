@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\AdminLayout\" />
+    <None Remove="Views\Category\" />
+    <None Remove="ViewComponents\" />
+    <None Remove="ViewComponents\LayoutComponents\" />
+    <None Remove="Views\Shared\Components\" />
+    <None Remove="Views\Shared\Components\_LayoutHeaderPartialComponent\" />
+    <None Remove="Views\Shared\Components\_LayoutNavbarPartialComponent\" />
+    <None Remove="Views\Shared\Components\_LayoutSidebarPartialComponent\" />
+    <None Remove="Views\Shared\Components\_LayoutScriptPartialComponent\" />
+    <None Remove="ViewModels\CategoryViewModels\" />
+    <None Remove="Dtos\" />
+    <None Remove="Dtos\CategoryDtos\" />
+    <None Remove="Views\Product\" />
+    <None Remove="Dtos\ProductDtos\" />
+    <None Remove="Dtos\SocialMediaDtos\" />
+    <None Remove="Views\SocialMedia\" />
+    <None Remove="Dtos\DiscountDtos\" />
+    <None Remove="Views\Discount\" />
+    <None Remove="Dtos\BookingDtos\" />
+    <None Remove="Views\Booking\" />
+    <None Remove="Dtos\FeatureDtos\" />
+    <None Remove="Views\Feature\" />
+    <None Remove="Views\About\" />
+    <None Remove="Dtos\AboutDtos\" />
+    <None Remove="Views\Testimonial\" />
+    <None Remove="Dtos\TestimonialDtos\" />
+    <None Remove="Views\Statistic\" />
+    <None Remove="ToDoList\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\AdminLayout\" />
+    <Folder Include="Views\Category\" />
+    <Folder Include="ViewComponents\" />
+    <Folder Include="ViewComponents\LayoutComponents\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\_LayoutHeaderPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_LayoutNavbarPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_LayoutSidebarPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_LayoutScriptPartialComponent\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Dtos\CategoryDtos\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="Dtos\ProductDtos\" />
+    <Folder Include="Dtos\SocialMediaDtos\" />
+    <Folder Include="Views\SocialMedia\" />
+    <Folder Include="Dtos\DiscountDtos\" />
+    <Folder Include="Views\Discount\" />
+    <Folder Include="Dtos\BookingDtos\" />
+    <Folder Include="Views\Booking\" />
+    <Folder Include="Dtos\FeatureDtos\" />
+    <Folder Include="Views\Feature\" />
+    <Folder Include="Views\About\" />
+    <Folder Include="Dtos\AboutDtos\" />
+    <Folder Include="Views\Testimonial\" />
+    <Folder Include="Dtos\TestimonialDtos\" />
+    <Folder Include="Views\Statistic\" />
+    <Folder Include="ToDoList\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.5" />
+  </ItemGroup>
+</Project>

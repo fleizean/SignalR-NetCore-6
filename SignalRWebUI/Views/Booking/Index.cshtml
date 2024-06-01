@@ -1,0 +1,111 @@
+﻿@model List<SignalRWebUI.Dtos.BookingDtos.ResultBookingDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+@{
+    string FormatPhoneNumber(string phoneNumber)
+    {
+        if (phoneNumber.Length == 10)
+        {
+            return string.Format("{0:(###) ###-####}", double.Parse(phoneNumber));
+        }
+        else if (phoneNumber.Length == 11)
+        {
+            return string.Format("+{0} (###) ###-####", phoneNumber[0]);
+        }
+        return phoneNumber;
+    }
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">Rezervasyonlar</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Rezervasyon Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Rezervasyon işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">[]</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Müşteri Adı</th>
+                                <th scope="col">Telefon</th>
+                                <th scope="col">Mail</th>
+                                <th scope="col">Rezerve Sayısı</th>
+                                <th scope="col">Rezervasyon Tarihi</th>
+                                <th scope="col">Durumu</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0) {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="ui-checkbox" name="selectedBookings" value="@item.BookingID" />
+                                        </td>
+                                        <td>@item.BookingID</td>
+                                        <td>@item.Name</td>
+                                        <td><i class="fas fa-phone"></i> <a href="tel:@item.Phone">@FormatPhoneNumber(item.Phone)</a></td>
+                                        <td><i class="fas fa-envelope"></i> <a href="mailto:@item.Mail">@item.Mail</a></td>
+                                        <td style="font-weight:500;color: @(item.PersonCount > 5 ? "red" : "green")">
+                                            @item.PersonCount
+                                        </td>
+                                        <td style="color: @(item.ReservationDate < DateTime.Now ? "black" : "red")">
+                                            @item.ReservationDate.ToString("dd MMMM yyyy hh:m")
+                                        </td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:green">Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">Pasif</td>
+                                        }
+                                        <td><a href="/Booking/DeleteBooking/@item.BookingID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/Booking/UpdateBooking/@item.BookingID" class="btn btn-outline-success">Güncelle</a></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="9" style="color: red; font-size:14px">Rezervasyon yok veya db bağlantısı reddedildi.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div style="display:flex; gap:5px;">
+                        <a href="/Booking/CreateBooking" class="btn btn-outline-primary">Rezervasyon Ekle</a>
+                        @if (Model != null && Model.Count > 0) {
+                            <form method="post" action="/Booking/SendBookingMail">
+
+                                @foreach (var item in Model)
+                                {
+                                    <input type="hidden" name="selectedBookings" value="@item.BookingID" />
+                                }
+                                <button type="submit" class="btn btn-outline-warning">Seçilenlere Mail At</button>
+                            </form>
+                        }
+                        else {
+                            <button type="submit" class="btn btn-outline-warning" disabled>Seçilenlere Mail At</button>
+                            <p></p>
+                        }
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

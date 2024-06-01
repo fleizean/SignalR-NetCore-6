@@ -1,0 +1,111 @@
+﻿@model List<SignalRWebUI.Dtos.DiscountDtos.ResultDiscountDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+@{
+    Dictionary<string, string> categoryColors = new Dictionary<string, string>
+{
+        { "İçecek", "#da7e49" },
+        { "Tatlı", "#e9c6de" },
+        { "Salata", "#00ff00" }, // Salata için yeşil renk
+        { "Hamburger", "#a77932" },
+        { "Makarna", "#e3cb9c" },
+        { "Ara Öğün", "#00ffff" }
+        // Diğer kategori isimleri ve renkleri buraya eklenebilir
+    };
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">İndirimler</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">İndirim Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        İndirim işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">Ürün</th>
+                                <th scope="col">Önceki Fiyat</th>
+                                <th scope="col">İndirim Fiyatı</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Resim</th>
+                                <th scope="col">Durumu</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0) {
+                                @foreach (var item in Model)
+                                    {
+                                        var shortDescription = item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description;
+                                    <tr>
+                                        <td>@item.DiscountID</td>
+                                        <td style="color: @(categoryColors.ContainsKey(item.Product.Category.CategoryName) ? categoryColors[item.Product.Category.CategoryName] : "#000000")">@item.Product.Category.CategoryName</td>
+                                        <td>@item.Product.ProductName</td>
+                                        <td style="color:red">@item.Product.Price</td>
+                                        <td style="color:green">@item.Amount</td>
+                                        <td>
+                                            <span id="shortDescription-@item.DiscountID">@shortDescription</span>
+                                            @if (item.Description.Length > 15)
+                                            {
+                                                <a href="#" data-toggle="collapse" data-target="#fullDescription-@item.DiscountID" aria-expanded="false" aria-controls="fullDescription-@item.DiscountID">Daha fazla</a>
+                                            }
+                                            <div id="fullDescription-@item.DiscountID" class="collapse">
+                                                @item.Description
+                                            </div>
+                                        </td>
+                                        <td><img src="@item.ImageUrl" class="tableModalImage" height="96" width="96" data-toggle="modal" data-target="#imageModal-@item.DiscountID" style="cursor: pointer;" /></td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:green">Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">Pasif</td>
+                                        }
+                                        <td><a href="/Discount/DeleteDiscount/@item.DiscountID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/Discount/UpdateDiscount/@item.DiscountID" class="btn btn-outline-success">Güncelle</a></td>
+                                    </tr>
+                                    <div class="modal fade" id="imageModal-@item.DiscountID" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel-@item.DiscountID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="imageModalLabel-@item.DiscountID">@item.Product.ProductName</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="text-align:center; justify-content:center; align-item:center">
+                                                    <img src="@item.ImageUrl" class="img-fluid" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else {
+                                <tr>
+                                    <td colspan="6" style="color: red; font-size:14px">İndirim yok veya db bağlantısı reddedildi.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a href="/Discount/CreateDiscount" class="btn btn-outline-primary">İndirim Ekle</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

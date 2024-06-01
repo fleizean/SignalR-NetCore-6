@@ -1,0 +1,85 @@
+﻿@model List<SignalRWebUI.Dtos.AboutDtos.ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">Hakkımızdakiler</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Hakkımızda Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Hakkımızda işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Resim</th>
+                                <th scope="col">Başlık</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0) {
+                                @foreach (var item in Model)
+                                {
+                                        var shortDescription = item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description;
+                                    <tr>
+                                        <td>@item.AboutID</td>
+                                        <td><img src="@item.ImageUrl" class="tableModalImage" height="96" width="96" data-toggle="modal" data-target="#imageModal-@item.AboutID" style="cursor: pointer;" /></td>
+                                        <td>@item.Title</td>
+                                        <td>
+                                            <span id="shortDescription-@item.AboutID">@shortDescription</span>
+                                            @if (item.Description.Length > 15)
+                                            {
+                                                <a href="#" data-toggle="collapse" data-target="#fullDescription-@item.AboutID" aria-expanded="false" aria-controls="fullDescription-@item.AboutID">Daha fazla</a>
+                                            }
+                                            <div id="fullDescription-@item.AboutID" class="collapse">
+                                                @item.Description
+                                            </div>
+                                        </td>
+                                        <td><a href="/About/DeleteAbout/@item.AboutID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/About/UpdateAbout/@item.AboutID" class="btn btn-outline-success">Güncelle</a></td>
+                                    </tr>
+                                    <div class="modal fade" id="imageModal-@item.AboutID" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel-@item.AboutID" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="imageModalLabel-@item.AboutID">@item.Title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="text-align:center; justify-content:center; align-item:center">
+                                                    <img src="@item.ImageUrl" class="img-fluid" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else {
+                                 <tr>
+                                    <td colspan="9" style="color: red; font-size:14px">Hakkımda yok veya db bağlantısı reddedildi.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div style="display:flex; gap:5px;">
+                        <a href="/About/CreateAbout" class="btn btn-outline-primary">Hakkımda Ekle</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
