@@ -74,7 +74,7 @@ namespace SignalRApi.Controllers
             {
                 _orderService.TAdd(new Order()
                 {
-                    TableNumber = createOrderDto.TableNumber,
+                    MenuTableID = createOrderDto.MenuTableID,
                     Description = createOrderDto.Description,
                     Date = createOrderDto.Date,
                     TotalPrice = createOrderDto.TotalPrice,
@@ -103,7 +103,7 @@ namespace SignalRApi.Controllers
             _orderService.TUpdate(new Order()
             {
                 OrderID = updateOrderDto.OrderID,
-                TableNumber = updateOrderDto.TableNumber,
+                MenuTableID = updateOrderDto.MenuTableID,
                 Description = updateOrderDto.Description,
                 Date = updateOrderDto.Date,
                 TotalPrice = updateOrderDto.TotalPrice,

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalR.DataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using SignalR.DataAccessLayer.Concrete;
 namespace SignalR.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    partial class SignalRContextModelSnapshot : ModelSnapshot
+    [Migration("20240601131916_mig_menutable")]
+    partial class mig_menutable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,18 +271,17 @@ namespace SignalR.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MenuTableID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TableNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderID");
-
-                    b.HasIndex("MenuTableID");
 
                     b.ToTable("Orders");
                 });
@@ -427,17 +428,6 @@ namespace SignalR.DataAccessLayer.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.Order", b =>
-                {
-                    b.HasOne("SignalR.EntityLayer.Entities.MenuTable", "MenuTable")
-                        .WithMany("Order")
-                        .HasForeignKey("MenuTableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MenuTable");
-                });
-
             modelBuilder.Entity("SignalR.EntityLayer.Entities.OrderDetail", b =>
                 {
                     b.HasOne("SignalR.EntityLayer.Entities.Order", "Order")
@@ -471,11 +461,6 @@ namespace SignalR.DataAccessLayer.Migrations
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("SignalR.EntityLayer.Entities.MenuTable", b =>
-                {
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("SignalR.EntityLayer.Entities.Order", b =>

@@ -21,11 +21,13 @@
     <None Remove="Controllers\" />
     <None Remove="Mapping\" />
     <None Remove="Hubs\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Mapping\" />
     <Folder Include="Hubs\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SignalR.BusinessLayer\SignalR.BusinessLayer.csproj">

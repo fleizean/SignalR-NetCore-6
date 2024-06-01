@@ -19,6 +19,7 @@
     <None Remove="FooterDto\" />
     <None Remove="OrderDto\" />
     <None Remove="OrderDetailDto\" />
+    <None Remove="MenuTableDto\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AboutDto\" />
@@ -33,5 +34,6 @@
     <Folder Include="FooterDto\" />
     <Folder Include="OrderDto\" />
     <Folder Include="OrderDetailDto\" />
+    <Folder Include="MenuTableDto\" />
   </ItemGroup>
 </Project>
