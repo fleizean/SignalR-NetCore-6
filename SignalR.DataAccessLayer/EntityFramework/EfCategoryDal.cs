@@ -28,7 +28,7 @@ namespace SignalR.DataAccessLayer.EntityFramework
 		{
 			using var context = new SignalRContext();
 			var latestCategory = context.Categories.OrderBy(c => c.CategoryID).LastOrDefault();
-            return latestCategory != null ? latestCategory.CategoryName : "No category found";
+            return latestCategory != null ? latestCategory.CategoryName : "No found";
         }
 
         public int PassiveCategoryCount()
@@ -55,7 +55,7 @@ namespace SignalR.DataAccessLayer.EntityFramework
                 .OrderBy(a => a.ProductCount)
                 .FirstOrDefault();
 
-            return leastValuableCategory != null ? leastValuableCategory.CategoryName : "No category found";
+            return leastValuableCategory != null ? leastValuableCategory.CategoryName : "No found";
         }
 
         public string MostValuableCategory()
@@ -70,7 +70,7 @@ namespace SignalR.DataAccessLayer.EntityFramework
                 .OrderByDescending(a => a.ProductCount)
                 .FirstOrDefault();
 
-            return mostValuableCategory != null ? mostValuableCategory.CategoryName : "No category found";
+            return mostValuableCategory != null ? mostValuableCategory.CategoryName : "No found";
         }
     }
 }

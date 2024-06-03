@@ -12,13 +12,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="fa-solid fa-table"></i>
+                                <i class="la la-users"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Kategoriler</p>
-                                <h4 class="card-title" id="categoryCount">Loading...</h4>
+                                <p class="card-category">Visitors</p>
+                                <h4 class="card-title">1,294</h4>
                             </div>
                         </div>
                     </div>
@@ -31,13 +31,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="fa-solid fa-bell-concierge"></i>
+                                <i class="la la-bar-chart"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Rezervasyonlar</p>
-                                <h4 class="card-title" id="bookingCount">Loading...</h4>
+                                <p class="card-category">Sales</p>
+                                <h4 class="card-title">$ 1,345</h4>
                             </div>
                         </div>
                     </div>
@@ -50,13 +50,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="fa-solid fa-comment"></i>
+                                <i class="la la-newspaper-o"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">İletişimler</p>
-                                <h4 class="card-title" id="contactCount">Loading...</h4>
+                                <p class="card-category">Subscribers</p>
+                                <h4 class="card-title">1303</h4>
                             </div>
                         </div>
                     </div>
@@ -69,89 +69,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="fa-brands fa-product-hunt"></i>
+                                <i class="la la-check-circle"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Ürünler</p>
-                                <h4 class="card-title" id="productCount">Loading...</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-stats card-info">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="fa-solid fa-tag"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 d-flex align-items-center">
-                            <div class="numbers">
-                                <p class="card-category">İndirimler</p>
-                                <h4 class="card-title" id="discountCount">Loading...</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-stats card-info" style="background: #008080 !important ">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="fa-solid fa-square-share-nodes"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 d-flex align-items-center">
-                            <div class="numbers">
-                                <p class="card-category">Sosyal Medyalar</p>
-                                <h4 class="card-title" id="socialMediaCount">Loading...</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-stats card-info" style="background: #d5b0f0 !important ">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="fa-solid fa-people-group"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 d-flex align-items-center">
-                            <div class="numbers">
-                                <p class="card-category">Referanslar</p>
-                                <h4 class="card-title" id="testimonialCount">Loading...</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card card-stats card-info" style="background: #8850BE !important">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="icon-big text-center">
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 d-flex align-items-center">
-                            <div class="numbers">
-                                <p class="card-category">Öne Çıkanlar</p>
-                                <h4 class="card-title" id="featureCount">Loading...</h4>
+                                <p class="card-category">Order</p>
+                                <h4 class="card-title">576</h4>
                             </div>
                         </div>
                     </div>
@@ -474,54 +398,3 @@
         </div>
     </div>
 </div>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.5.6/rxjs.umd.min.js"></script>
-<script>$(document).ready(() => {
-        const { interval } = rxjs;
-        const { switchMap } = rxjs.operators;
-
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:7083/SignalRHub")
-            .withAutomaticReconnect()
-            .configureLogging(signalR.LogLevel.Information)
-            .build();
-
-        connection.onclose(() => {
-            console.log("Connection closed");
-        });
-
-        connection.on("ReceiveDashboardCounts", (data) => {
-            // Log the entire data object
-            console.log(data);
-
-            // Ensure the properties exist before accessing them
-            if (data) {
-                $("#categoryCount").text(data.categoryCount);
-                $("#bookingCount").text(data.bookingCount);
-                $("#contactCount").text(data.contactCount);
-                $("#productCount").text(data.productCount);
-                $("#discountCount").text(data.discountCount);
-                $("#socialMediaCount").text(data.socialMediaCount);
-                $("#testimonialCount").text(data.testimonialCount);
-                $("#featureCount").text(data.featureCount);
-            } else {
-                console.error("Invalid data received:", data);
-            }
-        });
-
-        connection.start().then(() => {
-            console.log("Connection established and connected");
-
-            // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
-            interval(5000).pipe(
-                switchMap(() => connection.invoke("TakeDashboardCounts").catch(err => console.error(err)))
-            ).subscribe();
-
-        }).catch((err) => {
-            console.log(err);
-        });
-    });</script>

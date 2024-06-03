@@ -39,6 +39,16 @@ namespace SignalR.BusinessLayer.Concrete
             return _discountDal.GetListAll();
         }
 
+        public string TLastDiscountProduct()
+        {
+            return _discountDal.LastDiscountProduct();
+        }
+
+        public int TMostDiscountAmount()
+        {
+            return _discountDal.MostDiscountAmount();
+        }
+
         public void TUpdate(Discount entity)
         {
             _discountDal.Update(entity);

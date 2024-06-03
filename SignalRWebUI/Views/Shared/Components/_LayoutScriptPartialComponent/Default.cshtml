@@ -36,4 +36,30 @@
 			},
 			time: 1000,
 		});
-	});</script>
+});
+    $(document).ready(function () {
+        $(".mapcontainer").mapael({
+            map: {
+                name: "world_countries",
+                zoom: {
+                    enabled: true,
+                    maxLevel: 10
+                }
+            },
+            // Add any additional configuration if needed
+        });
+	});
+    $(document).ready(function () {
+        Circles.create({
+            id: 'task-complete',
+            radius: 75,
+            value: 80, // Example value
+            maxValue: 100,
+            width: 8,
+            text: function (value) { return value + '%'; },
+            colors: ['#eee', '#1D62F0'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text'
+        });
+    });</script>

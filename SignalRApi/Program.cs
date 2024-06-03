@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SignalRContext>(); // yeni eklendi
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); // "var values = _mapper.Map<List<ResultCategoryDto>>(_categoryService.TGetListAll());" soldaki Mapper kodunun çalışması için
 
+
 /* kodun katmanlar arasındaki bağımlılıklarını ayarlamak için kullanıyoruz api kullanımı için şart */
 
 builder.Services.AddCors(opt =>
