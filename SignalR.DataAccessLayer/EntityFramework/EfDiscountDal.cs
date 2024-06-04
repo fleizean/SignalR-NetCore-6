@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
@@ -17,6 +18,28 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             var context = new SignalRContext();
             return context.Discounts.Include(d => d.Product).ThenInclude(d => d.Category).ToList();
+        }
+
+        public string LastDiscountProduct()
+        {
+            var context = new SignalRContext();
+            var lastDiscount = context.Discounts
+                           .Include(d => d.Product)
+                           .OrderByDescending(d => d.DiscountID)
+                           .FirstOrDefault();
+
+            return lastDiscount?.Product?.ProductName ?? "Not found";
+        }
+
+        public int MostDiscountAmount()
+        {
+            var context = new SignalRContext();
+            if (context.Discounts.Any())
+            {
+                return context.Discounts.Max(d => d.Amount);
+
+            }
+            return 0;
         }
     }
 }

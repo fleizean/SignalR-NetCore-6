@@ -10,11 +10,17 @@
     <None Remove="EntityFramework\" />
     <None Remove="Repositories\" />
     <None Remove="Abstract\" />
+    <None Remove="Dtos\" />
+    <None Remove="Dtos\Order\" />
+    <None Remove="Dtos\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntityFramework\" />
     <Folder Include="Repositories\" />
     <Folder Include="Abstract\" />
+    <Folder Include="Dtos\" />
+    <Folder Include="Dtos\Order\" />
+    <Folder Include="Dtos\Product\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.21" />

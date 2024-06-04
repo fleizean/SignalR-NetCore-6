@@ -5,7 +5,7 @@
 
 
 <div class="container-fluid">
-    <h4 class="page-title">Statistic</h4>
+    <h4 class="page-title">İstatistikler</h4>
     <div class="row">
         <div class="col-md-3">
             <div class="card card-stats card-warning">
@@ -13,13 +13,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-users"></i>
+                                <i class="fa-solid fa-table"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">Kategoriler</p>
+                                <h4 class="card-title" id="categoryCount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -32,13 +32,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-bar-chart"></i>
+                                <i class="fa-brands fa-product-hunt"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">Ürünler</p>
+                                <h4 class="card-title" id="productCount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -51,13 +51,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-newspaper-o"></i>
+                                <i class="fa-solid fa-table-cells"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">Aktif Kategoriler</p>
+                                <h4 class="card-title" id="activeCategoryCount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-check-circle"></i>
+                                <i class="fa-solid fa-table-cells-column-lock"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">Pasif Kategoriler</p>
+                                <h4 class="card-title" id="passiveCategoryCount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -92,13 +92,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-users"></i>
+                                <i class="fa-solid fa-square-up-right"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">En Yüksek Fiyatlı Ürün</p>
+                                <h4 class="card-title" id="highestProductName">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -106,18 +106,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card card-stats card-success" style="background: #F46049">
+            <div class="card card-stats card-success" style="background: #d3a625">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-bar-chart"></i>
+                                <i class="fa-solid fa-circle-down"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">En Düşük Fiyatlı Ürün</p>
+                                <h4 class="card-title" id="lowestProductName">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -130,13 +130,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-newspaper-o"></i>
+                                <i class="fa-solid fa-chart-pie"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">Ortalama Ürün Fiyatı</p>
+                                <h4 class="card-title" id="productPriceAvg">Loading..</h4>
                             </div>
                         </div>
                     </div>
@@ -144,18 +144,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card card-stats card-primary" style="background: #FFD3D3">
+            <div class="card card-stats card-primary" style="background: #ffbb00">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-check-circle"></i>
+                                <i class="fa-solid fa-bomb"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">En Düşük Fiyatlı Kategori</p>
+                                <h4 class="card-title" id="atLeastValuableCategory">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -171,13 +171,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-users"></i>
+                                <i class="fa-solid fa-bolt"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">En Yüksek Fiyatlı Kategori</p>
+                                <h4 class="card-title" id="mostValuableCategory">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -190,13 +190,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-bar-chart"></i>
+                                <i class="fa-solid fa-turkish-lira-sign"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">En Son Sipariş Tutarı</p>
+                                <h4 class="card-title" id="lastOrderPrice">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -204,18 +204,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card card-stats card-danger" style="background: #C6EFEB">
+            <div class="card card-stats card-danger" style="background: #e01010">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-newspaper-o"></i>
+                                <i class="fa-solid fa-burger"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">Toplam Aktif Sipariş</p>
+                                <h4 class="card-title" id="totalActiveOrder">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -228,13 +228,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-check-circle"></i>
+                                <i class="fa-solid fa-chair"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">Toplam Masa</p>
+                                <h4 class="card-title" id="tableCount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -250,13 +250,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-users"></i>
+                                <i class="fa-solid fa-money-bill-trend-up"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">Bugün Kazanılan Para</p>
+                                <h4 class="card-title" id="todayTotalPrice">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -269,13 +269,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-bar-chart"></i>
+                                <i class="fa-solid fa-tag"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">En Yüksek İndirim Oranı</p>
+                                <h4 class="card-title" id="mostDiscountAmount">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -288,13 +288,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-newspaper-o"></i>
+                                <i class="fa-solid fa-award"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">En Son İndirimdeki Ürün</p>
+                                <h4 class="card-title" id="lastDiscountProduct">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -302,18 +302,18 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card card-stats card-primary" style="background: #d3a625">
+            <div class="card card-stats card-primary" style="background: #F46049">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-check-circle"></i>
+                                <i class="fa-solid fa-landmark"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">Toplam Kasadaki Para</p>
+                                <h4 class="card-title" id="totalPriceMoneyCase">Loading...</h4>
                             </div>
                         </div>
                     </div>
@@ -322,3 +322,66 @@
         </div>
     </div>
 </div>
+
+
+<script>$(document).ready(() => {
+        const { interval } = rxjs;
+        const { switchMap } = rxjs.operators;
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7083/SignalRHub")
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.onclose(() => {
+            console.log("Connection closed");
+        });
+
+        connection.on("ReceiveDashboardCounts", (data) => {
+            // Log the entire data object
+            console.log(data);
+
+            // Ensure the properties exist before accessing them
+            if (data) {
+                $("#categoryCount").text(data.categoryCount);
+                $("#productCount").text(data.productCount);
+                $("#activeCategoryCount").text(data.activeCategoryCount);
+                $("#passiveCategoryCount").text(data.passiveCategoryCount);
+                $("#highestProductName").text(data.highestProductName);
+                $("#lowestProductName").text(data.lowestProductName);
+                $("#productPriceAvg").text(data.productPriceAvg);
+                $("#atLeastValuableCategory").text(data.atLeastValuableCategory);
+                $("#mostValuableCategory").text(data.mostValuableCategory);
+                $("#lastOrderPrice").text(data.lastOrderPrice);
+                $("#totalActiveOrder").text(data.totalActiveOrder);
+                $("#tableCount").text(data.tableCount);
+                $("#totalPriceMoneyCase").text(data.totalPriceMoneyCase);
+                $("#lastDiscountProduct").text(data.lastDiscountProduct);
+                $("#mostDiscountAmount").text(data.mostDiscountAmount);
+                $("#todayTotalPrice").text(data.todayTotalPrice);
+
+
+
+            } else {
+                console.error("Invalid data received:", data);
+            }
+        });
+
+        connection.on("ReceiveDashboardCountsError", (data) => {
+            console.log(data);
+        });
+
+        connection.start().then(() => {
+            console.log("Connection established and connected");
+
+            // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
+            interval(5000).pipe(
+                switchMap(() => connection.invoke("TakeDashboardCounts").catch(err => console.error(err)))
+
+            ).subscribe();
+
+        }).catch((err) => {
+            console.log(err);
+        });
+    });</script>

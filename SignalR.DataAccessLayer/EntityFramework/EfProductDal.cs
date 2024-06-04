@@ -23,14 +23,14 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             using var context = new SignalRContext();
             var product = context.Products.Where(a => a.Price == (context.Products.Max(y => y.Price))).FirstOrDefault();
-            return product != null ? product.ProductName : "No product found";
+            return product != null ? product.ProductName : "No found";
         }
 
         public string LowestProductPriceName()
         {
             using var context = new SignalRContext();
             var product = context.Products.Where(a => a.Price == (context.Products.Min(y => y.Price))).FirstOrDefault();
-            return product != null ? product.ProductName : "No product found";
+            return product != null ? product.ProductName : "No found";
         }
 
         public int ProductCount()

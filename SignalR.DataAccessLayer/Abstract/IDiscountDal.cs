@@ -7,6 +7,8 @@ namespace SignalR.DataAccessLayer.Abstract
     {
         List<Discount> GetDiscountsWithProducts();
 
+        string LastDiscountProduct();
+        int MostDiscountAmount();
     }
 }
 
