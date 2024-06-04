@@ -51,6 +51,9 @@ namespace SignalRApi.Extensions
 
             services.AddScoped<IMenuTableService, MenuTableManager>();
             services.AddScoped<IMenuTableDal, EfMenuTableDal>();
+
+            services.AddScoped<IMoneyCaseHistoryService, MoneyCaseHistoryManager>();
+            services.AddScoped<IMoneyCaseHistoryDal, EfMoneyCaseHistoryDal>();
         }
     }
 }

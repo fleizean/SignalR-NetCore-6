@@ -1,0 +1,302 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid">
+    <h4 class="page-title">Admin İstatistikleri</h4>
+    <div class="row row-card-no-pd">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <p class="fw-bold mt-1">Kasa Durumu</p>
+                    <h4><b id="totalMoneyCase">Loading...</b></h4>
+                    <a href="#" class="btn btn-primary btn-full text-left mt-3 mb-3"><i class="la la-plus"></i> Add Balance</a>
+                </div>
+                <div class="card-footer">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="btn btn-default btn-link" href="#" data-toggle="modal" data-target="#historyModal">
+                                <i class="fa-solid fa-clock-rotate-left"></i> Kasa Geçmişi
+                            </a>
+                        </li>                        
+                        <li class="nav-item ml-auto"><a class="btn btn-default btn-link" href="#" data-toggle="modal" data-target="#activeOrdersModal"><i class="fa-solid fa-utensils"></i> Aktif Siparişler</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="progress-card">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Bugünkü Kazanılan</span>
+                            <span class="text-muted fw-bold" id="todayTotalPrice"></span>
+                        </div>
+                        <div class="progress mb-2" style="height: 7px;">
+                            <div class="progress-bar bg-success" id="todayTotalPriceStat" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5000" data-toggle="tooltip" data-placement="top" ></div>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Aktif Sipariş</span>
+                            <span class="text-muted fw-bold" id="totalActiveOrder"> </span>
+                        </div>
+                        <div class="progress mb-2" style="height: 7px;">
+                            <div class="progress-bar bg-info" id="totalActiveOrderStat" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top"></div>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Ortalama Ürün Fiyatı</span>
+                            <span class="text-muted fw-bold" id="productPriceAvg"></span>
+                        </div>
+                        <div class="progress mb-2" style="height: 7px;">
+                            <div class="progress-bar bg-primary" id="productPriceAvgStat" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="500" data-toggle="tooltip" data-placement="top"></div>
+                        </div>
+                    </div>
+                    <div class="progress-card">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted">Masa Boşluk Oranı</span>
+                            <span class="text-muted fw-bold" id="activeMenuTable"> </span>
+                        </div>
+                        <div class="progress mb-2" style="height: 7px;">
+                            <div class="progress-bar bg-warning" id="activeMenuTableStat" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="15" data-toggle="tooltip" data-placement="top"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats">
+                <div class="card-body">
+                    <p class="fw-bold mt-1">Statistic</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="la la-pie-chart text-warning"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <div class="numbers">
+                                <p class="card-category">Number</p>
+                                <h4 class="card-title">150GB</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center">
+                                <i class="la la-heart-o text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <div class="numbers">
+                                <p class="card-category">Followers</p>
+                                <h4 class="card-title">+45K</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Users Statistics</h4>
+                    <p class="card-category">
+                        Users statistics this month
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div id="monthlyChart" class="chart chart-pie"><div class="chartist-tooltip"></div><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-a"><path d="M160.664,235.992A115.496,115.496,0,0,0,160.664,5L160.664,120.496Z" class="ct-slice-pie" ct:value="50"></path></g><g class="ct-series ct-series-b"><path d="M50.821,156.186A115.496,115.496,0,0,0,161.067,235.991L160.664,120.496Z" class="ct-slice-pie" ct:value="20"></path></g><g class="ct-series ct-series-c"><path d="M160.664,5A115.496,115.496,0,0,0,50.946,156.57L160.664,120.496Z" class="ct-slice-pie" ct:value="30"></path></g><g><text dx="218.412109375" dy="120.49609375" text-anchor="middle" class="ct-label">50%</text><text dx="126.72061219818056" dy="167.21524506383608" text-anchor="middle" class="ct-label">20%</text><text dx="113.94491118616392" dy="86.55264344818056" text-anchor="middle" class="ct-label">30%</text></g></svg></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">2018 Sales</h4>
+                    <p class="card-category">
+                        Number of products sold
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div id="salesChart" class="chart">
+                        <div class="chartist-tooltip"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="historyModalLabel">Kasa Durum Geçmişi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="historyModalBody">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th scope="col">Tutar</th>
+                      <th scope="col">Yapılan İşlem</th>
+                      <th scope="col">Tarih</th>
+                  </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                  <!-- History data will be inserted here -->
+              </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="activeOrdersModal" tabindex="-1" role="dialog" aria-labelledby="activeOrdersModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="activeOrdersModalLabel">Aktif Siparişler</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="activeOrdersModalBody">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th scope="col">Masa Numarası</th>
+                      <th scope="col">Ürün</th>
+                      <th scope="col">Ürün Adeti</th>
+                      <th scope="col">Ürün Birim Fiyatı</th>
+                      <th scope="col">Toplam Fiyat</th>
+                  </tr>
+              </thead>
+              <tbody id="activeOrdersTableBody">
+                  <!-- History data will be inserted here -->
+              </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+    $(document).ready(() => {
+        const { interval } = rxjs;
+        const { switchMap } = rxjs.operators;
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7083/SignalRHub")
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.onclose(() => {
+            console.log("Connection closed");
+        });
+
+        connection.on("ReceiveAdminStatistics", (data) => {
+            // Log the entire data object
+            console.log(data);
+
+            // Ensure the properties exist before accessing them
+            if (data) {
+                $("#totalMoneyCase").text(data.totalMoneyCase);
+                var todayTotalPrice = data.todayTotalPrice;
+                var totalActiveOrder = data.totalActiveOrder;
+                var productPriceAvg = data.productPriceAvg;
+                var activeMenuTable = data.activeMenuTable;
+
+                $("#todayTotalPrice").text(todayTotalPrice + " ₺");
+                $("#totalActiveOrder").text(totalActiveOrder);
+                $("#productPriceAvg").text(productPriceAvg + " ₺");
+                $("#activeMenuTable").text(activeMenuTable);
+
+                var todayTotalPricePercentage = (todayTotalPrice / 5000) * 100;
+                var emptyTablePercentage = (activeMenuTable / 15) * 100;
+
+                todayTotalPriceStat.style.width = todayTotalPricePercentage + '%';
+                totalActiveOrderStat.style.width = `${totalActiveOrder}%`;
+                productPriceAvgStat.style.width = `${productPriceAvg}%`;
+                activeMenuTableStat.style.width = `${emptyTablePercentage}%`;
+                
+
+                $("#todayTotalPriceStat").attr("title", todayTotalPrice);
+                $("#totalActiveOrderStat").attr("title", totalActiveOrder);
+                $("#productPriceAvgStat").attr("title", productPriceAvg);
+                $("#activeMenuTableStat").attr("title", activeMenuTable);
+
+                todayTotalPriceStat.setAttribute("aria-valuenow", `${todayTotalPricePercentage}%`);
+                totalActiveOrderStat.setAttribute("aria-valuenow", `${totalActiveOrder}%`);
+                productPriceAvgStat.setAttribute("aria-valuenow", `${productPriceAvg}%`);
+                activeMenuTableStat.setAttribute("aria-valuenow", `${activeMenuTable}%`);
+                /*
+                $("#activeCategoryCount").text(data.activeCategoryCount);
+                $("#mostDiscountAmount").text(data.mostDiscountAmount);
+                $("#todayTotalPrice").text(data.todayTotalPrice);
+                */
+                if (data.moneyCaseHistories) {
+                    let historyHtml = '';
+                    data.moneyCaseHistories.forEach(history => {
+                        let date = new Date(history.transactionDate);
+                        let formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+                        if (history.transactionType === "ADD") {
+                            history.transactionType = "Ekleme";
+                        }
+                        historyHtml += `<tr><td style="color:green;">+${history.amount}</td><td style="color:green;">${history.transactionType}</td><td>${formattedDate}</td></tr>`;
+                    });
+                    $("#historyTableBody").html(historyHtml);
+                }
+                if (data.activeOrders) {
+                    let activeOrdersHtml = '';
+                    data.activeOrders.forEach(order => {
+                        activeOrdersHtml += `<tr>
+                            <td>${order.menuTableName}</td>
+                            <td>${order.product.productName}</td>
+                            <td>${order.count}</td>
+                            <td>${order.unitPrice}</td>
+                            <td>${order.totalPrice}</td>
+                        </tr>`;
+                    });
+
+                    // Assuming there is a table with id 'activeOrdersTable'
+                     $("#activeOrdersTableBody").html(activeOrdersHtml);
+                }
+            } else {
+                console.error("Invalid data received:", data);
+            }
+        });
+
+        connection.on("ReceiveAdminStatisticsError", (data) => {
+            console.log(data);
+        });
+
+        connection.start().then(() => {
+            console.log("Connection established and connected");
+
+            // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
+            interval(5000).pipe(
+                switchMap(() => connection.invoke("TakeProgress").catch(err => console.error(err)))
+
+            ).subscribe();
+
+        }).catch((err) => {
+            console.log(err);
+        });
+    });</script>

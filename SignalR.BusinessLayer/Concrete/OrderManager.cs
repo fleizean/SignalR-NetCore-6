@@ -1,6 +1,7 @@
 ﻿using System;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DataAccessLayer.Abstract;
+using SignalR.DataAccessLayer.Dtos.Order;
 using SignalR.EntityLayer.Entities;
 
 namespace SignalR.BusinessLayer.Concrete
@@ -62,6 +63,11 @@ namespace SignalR.BusinessLayer.Concrete
         public void TUpdate(Order entity)
         {
             _orderDal.Update(entity);
+        }
+
+        public List<ActiveOrdersWithDetails> TGetActiveOrdersWithDetails()
+        {
+            return _orderDal.GetActiveOrdersWithDetails();
         }
     }
 }

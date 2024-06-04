@@ -35,6 +35,7 @@
     <None Remove="Dtos\TestimonialDtos\" />
     <None Remove="Views\Statistic\" />
     <None Remove="ToDoList\" />
+    <None Remove="Views\AdminStatistic\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -64,6 +65,7 @@
     <Folder Include="Dtos\TestimonialDtos\" />
     <Folder Include="Views\Statistic\" />
     <Folder Include="ToDoList\" />
+    <Folder Include="Views\AdminStatistic\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -14,8 +14,9 @@ namespace SignalRApi.Hubs
         private readonly IOrderService _orderService;
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IDiscountService _discountService;
+        private readonly IMoneyCaseHistoryService _moneyCaseHistoryService;
 
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IMenuTableService menuTableService, IOrderService orderService, IMoneyCaseService moneyCaseService, IDiscountService discountService)
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IMenuTableService menuTableService, IOrderService orderService, IMoneyCaseService moneyCaseService, IDiscountService discountService, IMoneyCaseHistoryService moneyCaseHistoryService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -23,6 +24,7 @@ namespace SignalRApi.Hubs
             _orderService = orderService;
             _moneyCaseService = moneyCaseService;
             _discountService = discountService;
+            _moneyCaseHistoryService = moneyCaseHistoryService;
         }
 
         public async Task TakeDashboardCounts()
@@ -71,6 +73,37 @@ namespace SignalRApi.Hubs
             catch (Exception ex)
             {
                 await Clients.Caller.SendAsync("ReceiveDashboardCountsError", ex.Message);
+            }
+        }
+
+        public async Task TakeProgress()
+        {
+            try
+            {
+                var totalMoneyCase = _moneyCaseService.TTotalPriceMoneyCase();
+                var moneyCaseHistories = _moneyCaseHistoryService.TMoneyCaseHistories();
+                var activeOrders = _orderService.TGetActiveOrdersWithDetails();
+                var todayTotalPrice = _orderService.TTodayTotalPrice();
+                var totalActiveOrder = _orderService.TTotalActiveOrderCount();
+                var productPriceAvg = _productService.TProductPriceAverage();
+                var activeMenuTable = _menuTableService.TActiveMenuTable();
+                var adminStatistic = new
+                {
+                    TotalMoneyCase = totalMoneyCase.ToString("0.00") + "₺",
+                    MoneyCaseHistories = moneyCaseHistories,
+                    ActiveOrders = activeOrders,
+
+                    TodayTotalPrice = todayTotalPrice,
+                    TotalActiveOrder = totalActiveOrder,
+                    ProductPriceAvg = productPriceAvg,
+                    ActiveMenuTable = activeMenuTable,
+                };
+
+                await Clients.Caller.SendAsync("ReceiveAdminStatistics", adminStatistic);
+            }
+            catch (Exception ex)
+            {
+                await Clients.Caller.SendAsync("ReceiveAdminStatisticsError", ex.Message);
             }
         }
 

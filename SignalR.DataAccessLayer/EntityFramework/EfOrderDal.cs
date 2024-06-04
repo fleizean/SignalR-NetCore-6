@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
+using SignalR.DataAccessLayer.Dtos.Order;
+using SignalR.DataAccessLayer.Dtos.Product;
 using SignalR.DataAccessLayer.Repositories;
 using SignalR.EntityLayer.Entities;
 
@@ -41,6 +43,37 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             using var context = new SignalRContext();
             return context.Orders.Where(o => o.Date == DateTime.Today).Sum(o => o.TotalPrice);
+        }
+
+        public List<ActiveOrdersWithDetails> GetActiveOrdersWithDetails()
+        {
+            using var context = new SignalRContext();
+            var activeOrdersWithDetails = context.Orders
+                .Include(o => o.MenuTable) // Include MenuTable in the query
+                .Include(o => o.OrderDetail) // Include OrderDetail in the query
+                    .ThenInclude(od => od.Product) // Include Product in the query
+                .Where(o => o.Status) // Assuming there is a Status property in Order
+                .SelectMany(o => o.OrderDetail, (o, od) => new { Order = o, OrderDetail = od })
+                .Select(o => new ActiveOrdersWithDetails
+                {
+                    OrderID = o.Order.OrderID,
+                    TotalPrice = o.Order.TotalPrice,
+                    MenuTableName = o.Order.MenuTable.Name, // Get MenuTableName from MenuTable
+                    Count = o.OrderDetail.Count,
+                    UnitPrice = o.OrderDetail.UnitPrice,
+                    Product = new ResultProductDto
+                    {
+                        ProductID = o.OrderDetail.Product.ProductID,
+                        ProductName = o.OrderDetail.Product.ProductName,
+                        Description = o.OrderDetail.Product.Description,
+                        Price = o.OrderDetail.Product.Price,
+                        ImageUrl = o.OrderDetail.Product.ImageUrl,
+                        Status = o.OrderDetail.Product.Status
+                    }
+                })
+                .ToList();
+
+            return activeOrdersWithDetails;
         }
     }
 }

@@ -14,6 +14,11 @@ namespace SignalR.BusinessLayer.Concrete
             _menuTableDal = menuTableDal;
         }
 
+        public int TActiveMenuTable()
+        {
+            return _menuTableDal.ActiveMenuTable();
+        }
+
         public void TAdd(MenuTable entity)
         {
             _menuTableDal.Add(entity);

@@ -10,13 +10,14 @@ BEGIN
     Declare @Status bit
     Declare @TotalPrice decimal(18, 2)
 
-    SELECT @MenuTableID=MenuTableID, @TotalPrice=TotalPrice FROM inserted
+    SELECT @MenuTableID=MenuTableID, @TotalPrice=TotalPrice, @Status=Status FROM inserted
 
-    SELECT @Status = Status FROM MenuTables WHERE MenuTableID = @MenuTableID
-
-    IF (@Status = 0)
+    IF (@Status = 1 AND @TotalPrice > 0)
     BEGIN
         UPDATE MoneyCases SET TotalAmount = TotalAmount + @TotalPrice 
+        /* UPDATE Orders SET Status = 0 WHERE MenuTableID = @MenuTableID */
+        INSERT INTO MoneyCaseHistories (Amount, TransactionType, TransactionDate)
+        VALUES (@TotalPrice, 'ADD', GETDATE())
     END
 END;
 GO
