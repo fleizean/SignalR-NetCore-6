@@ -69,6 +69,11 @@ namespace SignalR.BusinessLayer.Concrete
         {
             return _orderDal.GetActiveOrdersWithDetails();
         }
+
+        public List<MostSellingOrdersDto> TMostSellingOrders()
+        {
+            return _orderDal.MostSellingOrders();
+        }
     }
 }
 

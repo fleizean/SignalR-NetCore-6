@@ -87,6 +87,10 @@ namespace SignalRApi.Hubs
                 var totalActiveOrder = _orderService.TTotalActiveOrderCount();
                 var productPriceAvg = _productService.TProductPriceAverage();
                 var activeMenuTable = _menuTableService.TActiveMenuTable();
+                var highestProductName = _productService.THighestProductPriceName();
+                var lastOrderPrice = _orderService.TLastOrderPrice();
+                var muchSelling = _orderService.TMostSellingOrders();
+
                 var adminStatistic = new
                 {
                     TotalMoneyCase = totalMoneyCase.ToString("0.00") + "₺",
@@ -97,6 +101,9 @@ namespace SignalRApi.Hubs
                     TotalActiveOrder = totalActiveOrder,
                     ProductPriceAvg = productPriceAvg,
                     ActiveMenuTable = activeMenuTable,
+                    HighestProductName = highestProductName,
+                    LastOrderPrice = lastOrderPrice,
+                    MuchSelling = muchSelling,
                 };
 
                 await Clients.Caller.SendAsync("ReceiveAdminStatistics", adminStatistic);
