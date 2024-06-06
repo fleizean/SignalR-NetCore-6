@@ -54,38 +54,13 @@ var chart = new Chartist.Line('#trafficChart', {
 	height: "245px",
 });
 
-// salesChart
-var dataSales = {
-	labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	series: [
-	[5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-	[3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
-	]
-}
 
-var optionChartSales = {
-	plugins: [
-	Chartist.plugins.tooltip()
-	],
-	seriesBarDistance: 10,
-	axisX: {
-		showGrid: false
-	},
-	height: "245px",
-}
+// Chartist.Bar
 
-var responsiveChartSales = [
-['screen and (max-width: 640px)', {
-	seriesBarDistance: 5,
-	axisX: {
-		labelInterpolationFnc: function (value) {
-			return value[0];
-		}
-	}
-}]
-];
+  
 
-Chartist.Bar('#salesChart', dataSales, optionChartSales, responsiveChartSales);
+
+
 
 $(".mapcontainer").mapael({
 	map : {

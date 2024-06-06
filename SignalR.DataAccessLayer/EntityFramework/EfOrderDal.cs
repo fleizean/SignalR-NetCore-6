@@ -75,6 +75,25 @@ namespace SignalR.DataAccessLayer.EntityFramework
 
             return activeOrdersWithDetails;
         }
+
+        public List<MostSellingOrdersDto> MostSellingOrders()
+        {
+            using var context = new SignalRContext();
+            var mostSellingOrders = context.Orders
+                .Include(o => o.OrderDetail)
+                .ThenInclude(od => od.Product)
+                .SelectMany(o => o.OrderDetail)
+                .GroupBy(od => od.Product.ProductName)
+                .Select(g => new MostSellingOrdersDto
+                {
+                    ProductName = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(g => g.Count)
+                .ToList();
+
+            return mostSellingOrders;
+        }
     }
 }
 

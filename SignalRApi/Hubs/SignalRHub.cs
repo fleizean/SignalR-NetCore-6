@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 
+
 namespace SignalRApi.Hubs
 {
     public class SignalRHub : Hub
@@ -55,14 +56,14 @@ namespace SignalRApi.Hubs
                     ActiveCategoryCount = activeCategoryCount,
                     PassiveCategoryCount = passiveCategoryCount,
                     HighestProductName = highestProductName,
-                    ProductPriceAvg = productPriceAvg.ToString("0.00") + "₺",
+                    ProductPriceAvg = Math.Round(productPriceAvg, 2).ToString("0.00") + " ₺",
                     LowestProductName = lowestProductName,
                     MostValuableCategory = mostValuableCategory,
                     AtLeastValuableCategory = atLeastValuableCategory,
-                    LastOrderPrice = lastOrderPrice,
+                    LastOrderPrice = Math.Round(lastOrderPrice, 2).ToString("0.00") + " ₺",
                     TotalActiveOrder = totalActiveOrder,
                     TableCount = tableCount,
-                    TotalPriceMoneyCase = totalPriceMoneyCase.ToString("0.00") + "₺",
+                    TotalPriceMoneyCase = Math.Round(totalPriceMoneyCase, 2).ToString("0.00") + " ₺",
                     TodayTotalPrice = todayTotalPrice.ToString("0.00") + "₺",
                     LastDiscountProduct = lastDiscountProduct,
                     MostDiscountAmount = mostDiscountAmount.ToString() + "%",
@@ -87,9 +88,14 @@ namespace SignalRApi.Hubs
                 var totalActiveOrder = _orderService.TTotalActiveOrderCount();
                 var productPriceAvg = _productService.TProductPriceAverage();
                 var activeMenuTable = _menuTableService.TActiveMenuTable();
+                var highestProductName = _productService.THighestProductPriceName();
+                var lastOrderPrice = _orderService.TLastOrderPrice();
+                var muchSelling = _orderService.TMostSellingOrders();
+                var productStatList = _productService.TPriceAndProductList();
+
                 var adminStatistic = new
                 {
-                    TotalMoneyCase = totalMoneyCase.ToString("0.00") + "₺",
+                    TotalMoneyCase = Math.Round(totalMoneyCase, 2).ToString("0.00") + " ₺",
                     MoneyCaseHistories = moneyCaseHistories,
                     ActiveOrders = activeOrders,
 
@@ -97,6 +103,10 @@ namespace SignalRApi.Hubs
                     TotalActiveOrder = totalActiveOrder,
                     ProductPriceAvg = productPriceAvg,
                     ActiveMenuTable = activeMenuTable,
+                    HighestProductName = highestProductName,
+                    LastOrderPrice = lastOrderPrice,
+                    MuchSelling = muchSelling,
+                    ProductStatList = productStatList,
                 };
 
                 await Clients.Caller.SendAsync("ReceiveAdminStatistics", adminStatistic);

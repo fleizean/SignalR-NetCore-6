@@ -36,6 +36,19 @@
     <None Remove="Views\Statistic\" />
     <None Remove="ToDoList\" />
     <None Remove="Views\AdminStatistic\" />
+    <None Remove="Views\Default\" />
+    <None Remove="Views\UILayout\" />
+    <None Remove="ViewComponents\UILayoutComponents\" />
+    <None Remove="Views\Shared\Components\_UILayoutHeaderPartialComponent\" />
+    <None Remove="Views\Shared\Components\_UILayoutNavbarPartialComponent\" />
+    <None Remove="Views\Shared\Components\_UILayoutScriptPartialComponent\" />
+    <None Remove="Views\Shared\Components\_UILayoutFooterPartialComponent\" />
+    <None Remove="Views\Shared\Components\_DefaultFeatureComponentPartial\" />
+    <None Remove="Views\Shared\Components\_DefaultSliderComponentPartial\" />
+    <None Remove="Views\Shared\Components\_DefaultOurMenuComponentPartial\" />
+    <None Remove="Views\Shared\Components\_DefaultAboutUsComponentPartial\" />
+    <None Remove="Views\Shared\Components\_DefaultBookingComponentPartial\" />
+    <None Remove="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -66,6 +79,19 @@
     <Folder Include="Views\Statistic\" />
     <Folder Include="ToDoList\" />
     <Folder Include="Views\AdminStatistic\" />
+    <Folder Include="Views\Default\" />
+    <Folder Include="Views\UILayout\" />
+    <Folder Include="ViewComponents\UILayoutComponents\" />
+    <Folder Include="Views\Shared\Components\_UILayoutHeaderPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_UILayoutNavbarPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_UILayoutScriptPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_UILayoutFooterPartialComponent\" />
+    <Folder Include="Views\Shared\Components\_DefaultFeatureComponentPartial\" />
+    <Folder Include="Views\Shared\Components\_DefaultSliderComponentPartial\" />
+    <Folder Include="Views\Shared\Components\_DefaultOurMenuComponentPartial\" />
+    <Folder Include="Views\Shared\Components\_DefaultAboutUsComponentPartial\" />
+    <Folder Include="Views\Shared\Components\_DefaultBookingComponentPartial\" />
+    <Folder Include="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

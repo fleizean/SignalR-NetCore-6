@@ -70,17 +70,17 @@
         <div class="col-md-3">
             <div class="card card-stats">
                 <div class="card-body">
-                    <p class="fw-bold mt-1">Statistic</p>
+                    <p class="fw-bold mt-1">İstatistik</p>
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center icon-warning">
-                                <i class="la la-pie-chart text-warning"></i>
+                                <i class="fa-solid fa-bowl-food" style="color: green;"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Number</p>
-                                <h4 class="card-title">150GB</h4>
+                                <p class="card-category">En Son Sipariş Tutarı</p>
+                                <h4 class="card-title" id="lastOrderPrice"></h4>
                             </div>
                         </div>
                     </div>
@@ -88,13 +88,13 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center">
-                                <i class="la la-heart-o text-primary"></i>
+                                <i class="fa-solid fa-star" style="color:coral;"></i>
                             </div>
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Followers</p>
-                                <h4 class="card-title">+45K</h4>
+                                <p class="card-category">En Yüksek Tutarlı Ürün</p>
+                                <h4 class="card-title" id="highestProductName"></h4>
                             </div>
                         </div>
                     </div>
@@ -106,25 +106,25 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Users Statistics</h4>
+                    <h4 class="card-title">En Çok Satılan Ürünler</h4>
                     <p class="card-category">
-                        Users statistics this month
+                        En çok satılan ürünler grafiği.
                     </p>
                 </div>
                 <div class="card-body">
-                    <div id="monthlyChart" class="chart chart-pie"><div class="chartist-tooltip"></div><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-pie" style="width: 100%; height: 100%;"><g class="ct-series ct-series-a"><path d="M160.664,235.992A115.496,115.496,0,0,0,160.664,5L160.664,120.496Z" class="ct-slice-pie" ct:value="50"></path></g><g class="ct-series ct-series-b"><path d="M50.821,156.186A115.496,115.496,0,0,0,161.067,235.991L160.664,120.496Z" class="ct-slice-pie" ct:value="20"></path></g><g class="ct-series ct-series-c"><path d="M160.664,5A115.496,115.496,0,0,0,50.946,156.57L160.664,120.496Z" class="ct-slice-pie" ct:value="30"></path></g><g><text dx="218.412109375" dy="120.49609375" text-anchor="middle" class="ct-label">50%</text><text dx="126.72061219818056" dy="167.21524506383608" text-anchor="middle" class="ct-label">20%</text><text dx="113.94491118616392" dy="86.55264344818056" text-anchor="middle" class="ct-label">30%</text></g></svg></div>
+                    <div id="monthlyChart" class="chart chart-pie"></div>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">2018 Sales</h4>
+                    <h4 class="card-title">Ürünlerin Fiyat İstatistiği</h4>
                     <p class="card-category">
-                        Number of products sold
+                        Ürünlerin anlık fiyat istatistiği.
                     </p>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="min-height:325.99px">
                     <div id="salesChart" class="chart">
                         <div class="chartist-tooltip"></div>
                     </div>
@@ -235,20 +235,15 @@
                 totalActiveOrderStat.style.width = `${totalActiveOrder}%`;
                 productPriceAvgStat.style.width = `${productPriceAvg}%`;
                 activeMenuTableStat.style.width = `${emptyTablePercentage}%`;
-                
-
-                $("#todayTotalPriceStat").attr("title", todayTotalPrice);
-                $("#totalActiveOrderStat").attr("title", totalActiveOrder);
-                $("#productPriceAvgStat").attr("title", productPriceAvg);
-                $("#activeMenuTableStat").attr("title", activeMenuTable);
-
+            
                 todayTotalPriceStat.setAttribute("aria-valuenow", `${todayTotalPricePercentage}%`);
                 totalActiveOrderStat.setAttribute("aria-valuenow", `${totalActiveOrder}%`);
                 productPriceAvgStat.setAttribute("aria-valuenow", `${productPriceAvg}%`);
                 activeMenuTableStat.setAttribute("aria-valuenow", `${activeMenuTable}%`);
+
+                $("#lastOrderPrice").text(data.lastOrderPrice);
+                $("#highestProductName").text(data.highestProductName);
                 /*
-                $("#activeCategoryCount").text(data.activeCategoryCount);
-                $("#mostDiscountAmount").text(data.mostDiscountAmount);
                 $("#todayTotalPrice").text(data.todayTotalPrice);
                 */
                 if (data.moneyCaseHistories) {
@@ -262,6 +257,21 @@
                         historyHtml += `<tr><td style="color:green;">+${history.amount}</td><td style="color:green;">${history.transactionType}</td><td>${formattedDate}</td></tr>`;
                     });
                     $("#historyTableBody").html(historyHtml);
+                }
+                if (data.muchSelling) {
+                    var chartData = {
+                        series: data.muchSelling.map(o => Number(o.count)),
+                        labels: data.muchSelling.map(o => o.productName)
+                    };
+
+                    var sum = function(a, b) { return a + b };
+                    var total = chartData.series.reduce(sum);
+
+                    new Chartist.Pie('#monthlyChart', chartData, {
+                        labelInterpolationFnc: function(value, index) {
+                            return chartData.labels[index] + ' (' + chartData.series[index] + ')';
+                        }
+                    });
                 }
                 if (data.activeOrders) {
                     let activeOrdersHtml = '';
@@ -277,6 +287,28 @@
 
                     // Assuming there is a table with id 'activeOrdersTable'
                      $("#activeOrdersTableBody").html(activeOrdersHtml);
+                }
+                if (data.productStatList) {
+                    let labels = data.productStatList.map(p => p.productName);
+                    let series = data.productStatList.map(p => p.price);
+
+                    new Chartist.Bar('#salesChart', {
+                        labels: labels,
+                        series: [series]
+                    }, {
+                        stackBars: true,
+                        axisY: {
+                            labelInterpolationFnc: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }).on('draw', function(data) {
+                        if(data.type === 'bar') {
+                            data.element.attr({
+                                style: 'stroke-width: 30px'
+                            });
+                        }
+                    });
                 }
             } else {
                 console.error("Invalid data received:", data);
