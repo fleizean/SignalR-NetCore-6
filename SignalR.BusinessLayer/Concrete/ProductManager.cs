@@ -1,6 +1,7 @@
 ﻿using System;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DataAccessLayer.Abstract;
+using SignalR.DataAccessLayer.Dtos.Product;
 using SignalR.EntityLayer.Entities;
 
 namespace SignalR.BusinessLayer.Concrete
@@ -47,6 +48,11 @@ namespace SignalR.BusinessLayer.Concrete
         public string TLowestProductPriceName()
         {
             return _productDal.LowestProductPriceName();
+        }
+
+        public List<PriceAndProductDto> TPriceAndProductList()
+        {
+            return _productDal.PriceAndProductList();
         }
 
         public int TProductCount()

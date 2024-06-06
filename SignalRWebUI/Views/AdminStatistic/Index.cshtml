@@ -119,12 +119,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">2018 Sales</h4>
+                    <h4 class="card-title">Ürünlerin Fiyat İstatistiği</h4>
                     <p class="card-category">
-                        Number of products sold
+                        Ürünlerin anlık fiyat istatistiği.
                     </p>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="min-height:325.99px">
                     <div id="salesChart" class="chart">
                         <div class="chartist-tooltip"></div>
                     </div>
@@ -269,8 +269,7 @@
 
                     new Chartist.Pie('#monthlyChart', chartData, {
                         labelInterpolationFnc: function(value, index) {
-                            var percentage = chartData.series.length === 1 ? 100 : total > 0 ? Math.round(value / total * 100) : 0;
-                            return chartData.labels[index] + ' (' + percentage + '%)';
+                            return chartData.labels[index] + ' (' + chartData.series[index] + ')';
                         }
                     });
                 }
@@ -288,6 +287,28 @@
 
                     // Assuming there is a table with id 'activeOrdersTable'
                      $("#activeOrdersTableBody").html(activeOrdersHtml);
+                }
+                if (data.productStatList) {
+                    let labels = data.productStatList.map(p => p.productName);
+                    let series = data.productStatList.map(p => p.price);
+
+                    new Chartist.Bar('#salesChart', {
+                        labels: labels,
+                        series: [series]
+                    }, {
+                        stackBars: true,
+                        axisY: {
+                            labelInterpolationFnc: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }).on('draw', function(data) {
+                        if(data.type === 'bar') {
+                            data.element.attr({
+                                style: 'stroke-width: 30px'
+                            });
+                        }
+                    });
                 }
             } else {
                 console.error("Invalid data received:", data);
