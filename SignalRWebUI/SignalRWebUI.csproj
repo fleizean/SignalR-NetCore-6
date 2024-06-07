@@ -49,6 +49,8 @@
     <None Remove="Views\Shared\Components\_DefaultAboutUsComponentPartial\" />
     <None Remove="Views\Shared\Components\_DefaultBookingComponentPartial\" />
     <None Remove="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
+    <None Remove="Dtos\SliderDtos\" />
+    <None Remove="Models\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -92,6 +94,8 @@
     <Folder Include="Views\Shared\Components\_DefaultAboutUsComponentPartial\" />
     <Folder Include="Views\Shared\Components\_DefaultBookingComponentPartial\" />
     <Folder Include="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
+    <Folder Include="Dtos\SliderDtos\" />
+    <Folder Include="Models\Product\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
