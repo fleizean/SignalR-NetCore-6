@@ -54,6 +54,9 @@ namespace SignalRApi.Extensions
 
             services.AddScoped<IMoneyCaseHistoryService, MoneyCaseHistoryManager>();
             services.AddScoped<IMoneyCaseHistoryDal, EfMoneyCaseHistoryDal>();
+
+            services.AddScoped<ISliderService, SliderManager>();
+            services.AddScoped<ISliderDal, EfSliderDal>();
         }
     }
 }
