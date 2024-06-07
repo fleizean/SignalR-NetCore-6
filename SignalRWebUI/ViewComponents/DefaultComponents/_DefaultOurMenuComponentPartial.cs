@@ -27,6 +27,8 @@ namespace SignalRWebUI.ViewComponents.DefaultComponents
                 productsWithCategory = JsonConvert.DeserializeObject<List<ResultProductWithCategory>>(jsonData);
             }
 
+
+
             var responseMessage2 = await client.GetAsync("https://localhost:7083/api/Category");
             var categoryDtos = new List<ResultCategoryDto>();
             if (responseMessage2.IsSuccessStatusCode)
@@ -34,6 +36,8 @@ namespace SignalRWebUI.ViewComponents.DefaultComponents
                 var jsonData = await responseMessage2.Content.ReadAsStringAsync();
                 categoryDtos = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
             }
+
+            productsWithCategory = productsWithCategory.OrderBy(p => p.Category.CategoryID).ToList();
 
             var viewModel = new ProductandCategory
             {
