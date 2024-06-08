@@ -52,6 +52,10 @@
     <None Remove="Dtos\SliderDtos\" />
     <None Remove="Models\Product\" />
     <None Remove="Models\Footer\" />
+    <None Remove="Views\Menu\" />
+    <None Remove="Views\Basket\" />
+    <None Remove="Dtos\BasketDtos\" />
+    <None Remove="Dtos\MenuTableDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -98,6 +102,10 @@
     <Folder Include="Dtos\SliderDtos\" />
     <Folder Include="Models\Product\" />
     <Folder Include="Models\Footer\" />
+    <Folder Include="Views\Menu\" />
+    <Folder Include="Views\Basket\" />
+    <Folder Include="Dtos\BasketDtos\" />
+    <Folder Include="Dtos\MenuTableDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -9849,6 +9849,30 @@ button.bg-dark:focus {
   color: #fff !important;
 }
 
+.basket-thread-text:not(:last-child){
+  color: white !important;
+  text-decoration: none;
+}
+
+.basket-thread-text{
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.basket-slash {
+  color: white !important;
+}
+
+.basket-thread-text:last-child {
+  color: gray !important;
+  text-decoration: none;
+}
+
+.basket-thread-text:hover:not(.basket-thread-text:last-child) {
+  color: gold !important;
+}
+
 .text-primary {
   color: #007bff !important;
 }
