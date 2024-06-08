@@ -1,4 +1,6 @@
-﻿<footer class="footer_section">
+﻿@model SignalRWebUI.Models.Footer.FooterandContactViewModel
+
+<footer class="footer_section">
     <div class="container">
         <div class="row">
             <div class="col-md-4 footer-col">
@@ -10,19 +12,19 @@
                         <a href="">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span>
-                                Çekmeköy, İstanbul
+                                @Model.Contact.Location
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>
-                                +90 555 555 55 55
+                                @Model.Contact.Telephone
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span>
-                                burgerova@info.com
+                                @Model.Contact.Mail
                             </span>
                         </a>
                     </div>
@@ -31,27 +33,19 @@
             <div class="col-md-4 footer-col">
                 <div class="footer_detail">
                     <a href="" class="footer-logo">
-                        Burgerova
+                        @Model.Footer.Title
                     </a>
                     <p>
-                        Burgerova olarak, dünya genelinde popüler olan ve Türkiye'de denenmemiş lezzetleri sizlerle buluşturuyoruz. Her bir burgerimiz, özenle seçilmiş tarifler ve titizlikle hazırlanmış malzemelerle yapılır.
+                        @Model.Footer.Description
                     </p>
                     <div class="footer_social">
-                        <a href="">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa fa-pinterest" aria-hidden="true"></i>
-                        </a>
+                        @foreach (var item in Model.SocialMedia)
+                            {
+                                <a href="@item.Url">
+                                    <i class="@item.Icon" aria-hidden="true"></i>
+                                </a>
+                        
+                            }
                     </div>
                 </div>
             </div>
@@ -60,10 +54,10 @@
                     Çalışma Saatleri
                 </h4>
                 <p>
-                    Pazartesi - Cuma
+                    @Model.Footer.OpeningDays
                 </p>
                 <p>
-                    09:00 - 23:00
+                    @Model.Footer.OpeningTimes
                 </p>
             </div>
         </div>

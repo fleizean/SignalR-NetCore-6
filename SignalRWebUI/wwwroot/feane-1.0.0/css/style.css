@@ -774,6 +774,8 @@ a:focus {
   border-radius: 100%;
   border: 5px solid #ffbe33;
   position: relative;
+  object-fit: cover;
+  height: 112px !important;
 }
 
 .client_section .box .img-box::before {
