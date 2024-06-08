@@ -39,7 +39,7 @@ namespace SignalRWebUI.ViewComponents.DefaultComponents
 
             productsWithCategory = productsWithCategory.OrderBy(p => p.Category.CategoryID).ToList();
 
-            var viewModel = new ProductandCategory
+            var viewModel = new ProductandCategoryViewModel
             {
                 ProductsWithCategory = productsWithCategory,
                 Categories = categoryDtos
