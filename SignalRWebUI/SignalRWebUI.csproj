@@ -51,6 +51,7 @@
     <None Remove="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
     <None Remove="Dtos\SliderDtos\" />
     <None Remove="Models\Product\" />
+    <None Remove="Models\Footer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -96,6 +97,7 @@
     <Folder Include="Views\Shared\Components\_DefaultTestimonialComponentPartial\" />
     <Folder Include="Dtos\SliderDtos\" />
     <Folder Include="Models\Product\" />
+    <Folder Include="Models\Footer\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

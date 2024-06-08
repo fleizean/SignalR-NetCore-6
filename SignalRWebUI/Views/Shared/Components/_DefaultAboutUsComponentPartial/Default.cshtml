@@ -1,25 +1,23 @@
-﻿<section class="about_section layout_padding">
+﻿@model SignalRWebUI.Dtos.AboutDtos.ResultAboutDto
+
+<section class="about_section layout_padding">
     <div class="container  ">
 
         <div class="row">
             <div class="col-md-6 ">
                 <div class="img-box">
-                    <img src="~/feane-1.0.0/images/about-img.png" alt="">
+                    <img src="@Model.ImageUrl" alt="">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="detail-box">
                     <div class="heading_container">
                         <h2>
-                            Biz Kimiz?
+                            @Model.Title
                         </h2>
                     </div>
                     <p>
-                        Burgerova olarak, dünya genelinde popüler olan ve Türkiye'de denenmemiş lezzetleri sizlerle buluşturuyoruz. 
-                        En taze malzemeleri kullanarak, benzersiz ve unutulmaz bir hamburger deneyimi sunmayı amaçlıyoruz. 
-                        Her bir burgerimiz, özenle seçilmiş tarifler ve titizlikle hazırlanmış malzemelerle yapılır. 
-                        Lezzet yolculuğumuza katılın ve bu eşsiz deneyimi yaşayın.
-                    </p>
+                        @Model.Description
                     </p>
                     <a href="">
                         Daha Fazla
