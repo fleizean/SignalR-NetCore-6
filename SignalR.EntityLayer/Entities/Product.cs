@@ -20,6 +20,7 @@ namespace SignalR.EntityLayer.Entities
 		public Category Category { get; set; }
 
         public ICollection<Discount> Discounts { get; set; }
+        public ICollection<Basket> Baskets { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }
 
     }

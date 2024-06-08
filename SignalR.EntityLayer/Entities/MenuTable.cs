@@ -8,6 +8,7 @@ namespace SignalR.EntityLayer.Entities
 		public bool Status { get; set; }
 
         public ICollection<Order> Order { get; set; }
+        public ICollection<Basket> Basket { get; set; }
 
     }
 }

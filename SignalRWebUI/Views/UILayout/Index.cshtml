@@ -8,11 +8,12 @@
 @await Component.InvokeAsync("_UILayoutHeaderPartialComponent")
 
 <body>
+    <div>
+        @await Component.InvokeAsync("_UILayoutNavbarPartialComponent")
 
-    @await Component.InvokeAsync("_UILayoutNavbarPartialComponent")
-
-    <!-- book section -->
-    @RenderBody()
+        <!-- book section -->
+        @RenderBody()
+    </div>
     <!-- end book section -->
     <!-- footer section -->
     @await Component.InvokeAsync("_UILayoutFooterPartialComponent")
