@@ -1,111 +1,157 @@
 ﻿@model List<SignalRWebUI.Dtos.BookingDtos.ResultBookingDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-@{
-    string FormatPhoneNumber(string phoneNumber)
-    {
-        if (phoneNumber.Length == 10)
-        {
-            return string.Format("{0:(###) ###-####}", double.Parse(phoneNumber));
-        }
-        else if (phoneNumber.Length == 11)
-        {
-            return string.Format("+{0} (###) ###-####", phoneNumber[0]);
+
+<div class="container-fluid">
+	<h4 class="page-title">Rezervasyonlar</h4>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<div class="card-title">Rezervasyon Listesi</div>
+				</div>
+				<div class="card-body">
+					<div class="card-sub">
+						Rezervasyon işlemleri buradan gerçekleştirilir.
+					</div>
+					<div id="bookingTable">
+
+					</div>
+					<div style="display:flex; gap:5px;">
+						<a href="/Booking/CreateBooking" class="btn btn-outline-primary">Rezervasyon Ekle</a>
+						@if (Model != null && Model.Count > 0)
+						{
+							<form method="post" action="/Booking/SendBookingMail">
+
+								@foreach (var item in Model)
+								{
+									<input type="hidden" name="selectedBookings" value="@item.BookingID" />
+								}
+								<button type="submit" class="btn btn-outline-warning">Seçilenlere Mail At</button>
+							</form>
+						}
+						else
+						{
+							<button type="submit" class="btn btn-outline-warning" disabled>Seçilenlere Mail At</button>
+							<p></p>
+						}
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<script>
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = d.getHours(),
+        minute = d.getMinutes(),
+        second = d.getSeconds();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    if (hour.length < 2)
+        hour = '0' + hour;
+    if (minute.length < 2)
+        minute = '0' + minute;
+    if (second.length < 2)
+        second = '0' + second;
+
+    return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':');
+}
+function formatPhoneNumber(phoneNumber) {
+        if (phoneNumber.length === 10) {
+            return phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+        } else if (phoneNumber.length === 11) {
+            return '+' + phoneNumber[0] + ' (' + phoneNumber.substr(1, 3) + ') ' + phoneNumber.substr(4, 3) + '-' + phoneNumber.substr(7);
         }
         return phoneNumber;
     }
-}
 
-<div class="container-fluid">
-    <h4 class="page-title">Rezervasyonlar</h4>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Rezervasyon Listesi</div>
-                </div>
-                <div class="card-body">
-                    <div class="card-sub">
-                        Rezervasyon işlemleri buradan gerçekleştirilir.
-                    </div>
-                    <table class="table mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="col">[]</th>
-                                <th scope="col">#</th>
-                                <th scope="col">Müşteri Adı</th>
-                                <th scope="col">Telefon</th>
-                                <th scope="col">Mail</th>
-                                <th scope="col">Rezerve Sayısı</th>
-                                <th scope="col">Rezervasyon Tarihi</th>
-                                <th scope="col">Durumu</th>
-                                <th scope="col">Sil</th>
-                                <th scope="col">Güncelle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null && Model.Count > 0) {
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="ui-checkbox" name="selectedBookings" value="@item.BookingID" />
-                                        </td>
-                                        <td>@item.BookingID</td>
-                                        <td>@item.Name</td>
-                                        <td><i class="fas fa-phone"></i> <a href="tel:@item.Phone">@FormatPhoneNumber(item.Phone)</a></td>
-                                        <td><i class="fas fa-envelope"></i> <a href="mailto:@item.Mail">@item.Mail</a></td>
-                                        <td style="font-weight:500;color: @(item.PersonCount > 5 ? "red" : "green")">
-                                            @item.PersonCount
-                                        </td>
-                                        <td style="color: @(item.ReservationDate < DateTime.Now ? "black" : "red")">
-                                            @item.ReservationDate.ToString("dd MMMM yyyy hh:m")
-                                        </td>
-                                        @if (item.Status == true)
-                                        {
-                                            <td style="color:green">Aktif</td>
-                                        }
-                                        else
-                                        {
-                                            <td style="color:red">Pasif</td>
-                                        }
-                                        <td><a href="/Booking/DeleteBooking/@item.BookingID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
-                                        <td><a href="/Booking/UpdateBooking/@item.BookingID" class="btn btn-outline-success">Güncelle</a></td>
-                                    </tr>
-                                }
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="9" style="color: red; font-size:14px">Rezervasyon yok veya db bağlantısı reddedildi.</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div style="display:flex; gap:5px;">
-                        <a href="/Booking/CreateBooking" class="btn btn-outline-primary">Rezervasyon Ekle</a>
-                        @if (Model != null && Model.Count > 0) {
-                            <form method="post" action="/Booking/SendBookingMail">
+	$(document).ready(() => {
+		const { interval } = rxjs;
+		const { switchMap } = rxjs.operators;
 
-                                @foreach (var item in Model)
-                                {
-                                    <input type="hidden" name="selectedBookings" value="@item.BookingID" />
-                                }
-                                <button type="submit" class="btn btn-outline-warning">Seçilenlere Mail At</button>
-                            </form>
-                        }
-                        else {
-                            <button type="submit" class="btn btn-outline-warning" disabled>Seçilenlere Mail At</button>
-                            <p></p>
-                        }
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
+		const connection = new signalR.HubConnectionBuilder()
+			.withUrl("https://localhost:7083/SignalRHub")
+			.withAutomaticReconnect()
+			.configureLogging(signalR.LogLevel.Information)
+			.build();
 
-    </div>
-</div>
+		connection.onclose(() => {
+			console.log("Connection closed");
+		});
+
+        connection.on("ReceiveBookingList", (data) => {
+            // Log the entire data object
+            console.log(data);
+
+            // Ensure the properties exist before accessing them
+            if (data) {
+                let tableHtml = `<table class="table mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Müşteri Adı</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Rezerve Sayısı</th>
+                    <th scope="col">Rezervasyon Tarihi</th>
+                    <th scope="col">Durumu</th>
+                    <th scope="col">Sil</th>
+                    <th scope="col">Güncelle</th>
+                </tr>
+            </thead>
+            <tbody>`;
+
+                $.each(data, (index, item) => {
+                    tableHtml += `<tr>
+                <td>${item.bookingID}</td>
+                <td>${item.name}</td>
+                <td><i class="fas fa-phone"></i> <a href="tel:${formatPhoneNumber(item.phone)}">${formatPhoneNumber(item.phone)}</a></td>
+                <td><i class="fas fa-envelope"></i> <a href="mailto:${item.mail}">${item.mail}</a></td>
+                <td style="font-weight: ${item.personCount > 5 ? "bold" : "normal"}; color: ${item.personCount > 5 ? "red" : "green"}">${item.personCount}</td>
+                <td style="color: ${new Date(item.reservationDate) < new Date() ? "black" : "red"}">${formatDate(item.reservationDate)}</td>
+                <td style="color: ${item.status ? "green" : "red"}">${item.status ? "Aktif" : "Pasif"}</td>
+                <td><a href="/Booking/DeleteBooking/${item.bookingID}" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                <td><a href="/Booking/UpdateBooking/${item.bookingID}" class="btn btn-outline-success">Güncelle</a></td>
+            </tr>`;
+                });
+
+                tableHtml += `</tbody></table>`;
+
+                // Set the HTML content of the table
+                $("#bookingTable").html(tableHtml);
+            } else {
+                console.error("Invalid data received:", data);
+            }
+        });
+
+		connection.start().then(() => {
+			console.log("Connection established and connected");
+
+			// RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
+			interval(5000).pipe(
+				switchMap(() => connection.invoke("TakeBookingList").catch(err => console.error(err)))
+
+			).subscribe();
+
+		}).catch((err) => {
+			console.log(err);
+		});
+	});</script>
