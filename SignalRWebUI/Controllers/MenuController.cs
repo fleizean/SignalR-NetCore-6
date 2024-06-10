@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using SignalRWebUI.Dtos.BasketDtos;
 using SignalRWebUI.Dtos.CategoryDtos;
 using SignalRWebUI.Dtos.ProductDtos;
 using SignalRWebUI.Models.Product;
@@ -51,6 +53,20 @@ namespace SignalRWebUI.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBasket([FromBody] CreateBasketDto createBasketDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createBasketDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7083/api/Basket", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return Ok("Eklendi");
+            }
+            return NotFound("Hata");
         }
     }
 }

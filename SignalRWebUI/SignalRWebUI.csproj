@@ -56,6 +56,7 @@
     <None Remove="Views\Basket\" />
     <None Remove="Dtos\BasketDtos\" />
     <None Remove="Dtos\MenuTableDtos\" />
+    <None Remove="Views\BookATable\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -106,6 +107,7 @@
     <Folder Include="Views\Basket\" />
     <Folder Include="Dtos\BasketDtos\" />
     <Folder Include="Dtos\MenuTableDtos\" />
+    <Folder Include="Views\BookATable\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

@@ -23,7 +23,7 @@
             </div>
 
             <ul class="filters_menu">
-                <li class="active" data-filter="*">All</li>
+                <li class="active" data-filter="*">Hepsi</li>
                 @foreach (var category in Model.Categories)
                 {
                     @if (category.Status)
@@ -57,7 +57,7 @@
                                                 <h6>
                                                     @item.Price ₺
                                                 </h6>
-                                                <a href="#" onclick="takeProductId(@item.ProductID)">
+                                                <a href="#" onclick="takeProductId(@item.ProductID, '@item.ProductName', @item.Price)">
                                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                     <g>
                                                     <g>
@@ -133,17 +133,32 @@
     <!-- footer section -->
     @await Component.InvokeAsync("_UILayoutScriptPartialComponent")
 
-    <script>function takeProductId(value) {
-            var id = value;
+    <script>function takeProductId(id, itemName, price) {
+            var itemNameValue = itemName;
             $.ajax({
-                type: 'post',
-                data: { item: id },
-                contentType: 'json',
+                type: 'POST',
+                data: JSON.stringify({
+                    ProductID: id,
+                    Price: price,
+                    Count: 1,
+                    TotalPrice: price,
+                    MenuTableID: 1,
+
+                }),
+                url: '/Menu/AddBasket',
+                contentType: 'application/json',
                 success: function () {
                     Swal.fire({
-                        title: "Tıklanan Ürünün",
-                        text: "Tıklanan ürünün Id Değeri " + id,
+                        title: itemNameValue,
+                        text: "Seçilen ürün sepete eklendi!",
                         icon: "success"
+                    });
+                },
+                error: function () {
+                    Swal.fire({
+                        title: "Hata",
+                        text: "Seçilen ürün sepete eklenirken bir hata oluştu!",
+                        icon: "error"
                     });
                 }
             })

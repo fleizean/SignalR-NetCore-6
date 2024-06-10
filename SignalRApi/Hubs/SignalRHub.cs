@@ -16,8 +16,9 @@ namespace SignalRApi.Hubs
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IDiscountService _discountService;
         private readonly IMoneyCaseHistoryService _moneyCaseHistoryService;
+        private readonly IBookingService _bookingService;
 
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IMenuTableService menuTableService, IOrderService orderService, IMoneyCaseService moneyCaseService, IDiscountService discountService, IMoneyCaseHistoryService moneyCaseHistoryService)
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IMenuTableService menuTableService, IOrderService orderService, IMoneyCaseService moneyCaseService, IDiscountService discountService, IMoneyCaseHistoryService moneyCaseHistoryService, IBookingService bookingService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -26,6 +27,7 @@ namespace SignalRApi.Hubs
             _moneyCaseService = moneyCaseService;
             _discountService = discountService;
             _moneyCaseHistoryService = moneyCaseHistoryService;
+            _bookingService = bookingService;
         }
 
         public async Task TakeDashboardCounts()
@@ -117,7 +119,11 @@ namespace SignalRApi.Hubs
             }
         }
 
-       
+        public async Task TakeBookingList()
+        {
+            var values = _bookingService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveBookingList", values);
+        }
     }
 }
 
