@@ -35,6 +35,9 @@ namespace SignalR.DataAccessLayer.Concrete
         public DbSet<MoneyCaseHistory> MoneyCaseHistories { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<MailSettings> MailSettings { get; set; }
+        public DbSet<MailContent> MailContents { get; set; }
+
 
     }
 }

@@ -20,7 +20,7 @@
     <div class="hero_area">
         @await Component.InvokeAsync("_UILayoutNavbarPartialComponent")
     </div>
-    
+
     <div class="container-fluid" style="margin-top:4em">
         <div class="row px-xl-5">
             <div class="col-12" style="padding-right:1px">
@@ -51,15 +51,15 @@
                     <tbody class="align-middle">
                         @foreach (var item in Model)
                         {
-                                
-                                count++;
+
+                            count++;
                             <tr>
                                 <td class="align-middle">@count</td>
                                 <td class="align-middle">@item.Product.ProductName</td>
                                 <td class="align-middle">@item.Count</td>
                                 <td class="align-middle">@item.Price</td>
                                 <td class="align-middle">@item.TotalPrice</td>
-                                <td class="align-middle btn-delete"><button data-basketid="@item.BasketID" id="btndeletebasketid" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color:white"></i></button></td>
+                                <td class="align-middle btn-delete"><button data-basketid="@item.BasketID" onclick="deleteProductInBasket(@item.BasketID, '@item.Product.ProductName')" id="btndeletebasketid" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color:white"></i></button></td>
                             </tr>
                         }
                     </tbody>
@@ -67,7 +67,7 @@
             </div>
             <div class="col-lg-4 bg-dark" style="width: calc(100% - 15px); box-sizing: border-box; border-radius:5px">
                 <div class="text-left h4 text-white p-3">Sepet Özeti</div>
-                <hr style="border-top: 1px solid white;"/>
+                <hr style="border-top: 1px solid white;" />
                 <!-- Arka plan rengi eklenmiştir -->
                 <div class="text-white p-3" style="font-size:15px;">
                     <div class="d-flex justify-content-between">
@@ -92,18 +92,18 @@
                         </div>
                     </form>
                 </div>
-                <hr style="border-top: 1px solid white;"/>
+                <hr style="border-top: 1px solid white;" />
                 <div class="text-white p-3" style="font-size:15px;">
                     <div class="d-flex justify-content-between">
                         <p>Toplam Fiyat:</p>
-                        <span id="totalPrice">@totalSumPrice₺</span>
+                        <span id="totalPriceSum">@totalSumPrice₺</span>
                     </div>
                 </div>
                 <div class="p-3">
                     <button class="btn btn-warning w-100" style="font-size:18px; height:48px; font-weight:bold" id="checkoutButton">KONTROL ET</button>
                 </div>
             </div>
-           
+
         </div>
     </div>
 
@@ -111,6 +111,69 @@
     @await Component.InvokeAsync("_UILayoutFooterPartialComponent")
     <!-- footer section -->
     @await Component.InvokeAsync("_UILayoutScriptPartialComponent")
+
+    <script>async function deleteProductInBasket(basketId, productName) {
+            const result = await Swal.fire({
+                title: productName + ' ürününü silmek istediğinizden emin misiniz?',
+                text: "Bu işlem geri alınamaz!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, sil!',
+                cancelButtonText: 'Hayır, iptal et!'
+            });
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`https://localhost:7083/api/Basket/${basketId}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        Swal.fire(
+                            'Silindi!',
+                            'Seçilen ürün silindi.',
+                            'success'
+                        ).then(() => {
+                            const row = document.querySelector(`button[data-basketid='${basketId}']`).closest('tr');
+                            row.remove();
+                            updateBasketSummary();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Hata!',
+                            'Böyle bir ürün yok.',
+                            'error'
+                        );
+                    }
+                }
+                catch (error) {
+                    console.error('Silme işlemi sırasında bir hata oluştu:', error);
+                    Swal.fire(
+                        'Hata!',
+                        'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
+                        'error'
+                    );
+                }
+            }
+        }
+
+        function updateBasketSummary() {
+            // Sepet özeti güncelleme işlemleri burada yapılabilir.
+            // Örneğin, sepet toplam fiyatını yeniden hesaplama ve güncelleme:
+
+            let basketTotalPrice = 0;
+            document.querySelectorAll('.table tbody tr').forEach(row => {
+                const price = parseFloat(row.querySelector('td:nth-child(4)').textContent.replace('₺', ''));
+                basketTotalPrice += price;
+            });
+
+            const tipPrice = Math.round(basketTotalPrice * 0.04 * 100) / 100;
+            const totalSumPrice = tipPrice + basketTotalPrice;
+
+            document.getElementById('totalPrice').textContent = basketTotalPrice.toFixed(2) + '₺';
+            document.getElementById('discountPrice').textContent = tipPrice.toFixed(2) + '₺';
+            document.getElementById('totalPriceSum').textContent = totalSumPrice.toFixed(2) + '₺';
+        }</script>
 
 </body>
 
