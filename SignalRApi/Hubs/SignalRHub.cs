@@ -17,8 +17,17 @@ namespace SignalRApi.Hubs
         private readonly IDiscountService _discountService;
         private readonly IMoneyCaseHistoryService _moneyCaseHistoryService;
         private readonly IBookingService _bookingService;
+        private readonly INotificationService _notificationService;
 
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IMenuTableService menuTableService, IOrderService orderService, IMoneyCaseService moneyCaseService, IDiscountService discountService, IMoneyCaseHistoryService moneyCaseHistoryService, IBookingService bookingService)
+        public SignalRHub(ICategoryService categoryService,
+                          IProductService productService,
+                          IMenuTableService menuTableService,
+                          IOrderService orderService,
+                          IMoneyCaseService moneyCaseService,
+                          IDiscountService discountService,
+                          IMoneyCaseHistoryService moneyCaseHistoryService,
+                          IBookingService bookingService,
+                          INotificationService notificationService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -28,6 +37,7 @@ namespace SignalRApi.Hubs
             _discountService = discountService;
             _moneyCaseHistoryService = moneyCaseHistoryService;
             _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
         public async Task TakeDashboardCounts()
@@ -123,6 +133,20 @@ namespace SignalRApi.Hubs
         {
             var values = _bookingService.TGetListAll();
             await Clients.All.SendAsync("ReceiveBookingList", values);
+        }
+
+        public async Task TakeNotifications()
+        {
+            var notificationList = _notificationService.TGetListAll();
+            var passiveNotificationCount = _notificationService.TNotificationCountByStatusFalse();
+
+            var notificationStatistic = new
+            {
+                NotificationList = notificationList,
+                PassiveNotificationCount = passiveNotificationCount
+            };
+
+            await Clients.All.SendAsync("ReceiveNotifications", notificationStatistic);
         }
     }
 }
