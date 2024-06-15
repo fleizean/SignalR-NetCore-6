@@ -1,0 +1,98 @@
+﻿@model List<SignalRWebUI.Dtos.MenuTableDtos.ResultMenuTableDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<div class="container-fluid">
+    <h4 class="page-title">Masa Durumları</h4>
+    <div class="row">
+        @foreach (var item in Model)
+            {
+                    <div class="col-md-3">
+                        <div class="card card-stats @(item.Status == true ? "card-success" : "card-danger")">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center">
+                                            <i class="fa-solid fa-table"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 d-flex align-items-center">
+                                        <div class="numbers">
+                                            <p class="card-category">@item.Name</p>
+                                            <h4 class="card-title">@(item.Status == true ? "Masa Dolu" : "Masa Boş")</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+            }
+     </div>
+</div>
+
+
+<script>$(document).ready(() => {
+        const { interval } = rxjs;
+        const { switchMap } = rxjs.operators;
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7083/SignalRHub")
+            .withAutomaticReconnect()
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connection.onclose(() => {
+            console.log("Connection closed");
+        });
+
+        connection.on("ReceiveDashboardCounts", (data) => {
+            // Log the entire data object
+            console.log(data);
+
+            // Ensure the properties exist before accessing them
+            if (data) {
+                $("#categoryCount").text(data.categoryCount);
+                $("#productCount").text(data.productCount);
+                $("#activeCategoryCount").text(data.activeCategoryCount);
+                $("#passiveCategoryCount").text(data.passiveCategoryCount);
+                $("#highestProductName").text(data.highestProductName);
+                $("#lowestProductName").text(data.lowestProductName);
+                $("#productPriceAvg").text(data.productPriceAvg);
+                $("#atLeastValuableCategory").text(data.atLeastValuableCategory);
+                $("#mostValuableCategory").text(data.mostValuableCategory);
+                $("#lastOrderPrice").text(data.lastOrderPrice);
+                $("#totalActiveOrder").text(data.totalActiveOrder);
+                $("#tableCount").text(data.tableCount);
+                $("#totalPriceMoneyCase").text(data.totalPriceMoneyCase);
+                $("#lastDiscountProduct").text(data.lastDiscountProduct);
+                $("#mostDiscountAmount").text(data.mostDiscountAmount);
+                $("#todayTotalPrice").text(data.todayTotalPrice);
+
+
+
+            } else {
+                console.error("Invalid data received:", data);
+            }
+        });
+
+        connection.on("ReceiveDashboardCountsError", (data) => {
+            console.log(data);
+        });
+
+        connection.start().then(() => {
+            console.log("Connection established and connected");
+
+            // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
+            interval(5000).pipe(
+                switchMap(() => connection.invoke("TakeDashboardCounts").catch(err => console.error(err)))
+
+            ).subscribe();
+
+        }).catch((err) => {
+            console.log(err);
+        });
+    });</script>

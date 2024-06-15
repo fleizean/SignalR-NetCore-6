@@ -58,6 +58,7 @@
     <None Remove="Views\BookATable\" />
     <None Remove="Views\Notification\" />
     <None Remove="Dtos\NotificationDtos\" />
+    <None Remove="Views\MenuTable\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -110,6 +111,7 @@
     <Folder Include="Views\BookATable\" />
     <Folder Include="Views\Notification\" />
     <Folder Include="Dtos\NotificationDtos\" />
+    <Folder Include="Views\MenuTable\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
