@@ -1,5 +1,5 @@
 ﻿using System;
-namespace SignalR.DTOLayer.Notification
+namespace SignalRWebUI.Dtos.Notification
 {
 	public class UpdateNotificationDto
 	{

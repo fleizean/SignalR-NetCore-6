@@ -17,6 +17,22 @@ namespace SignalR.DataAccessLayer.EntityFramework
             using var context = new SignalRContext();
             return context.Notifications.Count(a => a.Status == false);
         }
+
+        public void NotificationStatusFalse(int id)
+        {
+            using var context = new SignalRContext();
+            var notf = context.Notifications.Where(a => a.NotificationID == id).FirstOrDefault();
+            notf.Status = false;
+            context.SaveChanges();
+        }
+
+        public void NotificationStatusTrue(int id)
+        {
+            using var context = new SignalRContext();
+            var notf = context.Notifications.Where(a => a.NotificationID == id).FirstOrDefault();
+            notf.Status = true;
+            context.SaveChanges();
+        }
     }
 }
 

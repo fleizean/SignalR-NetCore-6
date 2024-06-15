@@ -110,17 +110,37 @@ $(document).ready(() => {
             var notiHtml = ``;
             $.each(data.notificationList, (index, item) => {
                 notiHtml += `
-                    <a href="#">
-                        <div class="notif-icon notif-${item.type}"> <i class="la la-heart"></i> </div>
-                            <div class="notif-content">
-                                <span class="block">
-                                    ${item.description}
-                                </span>
-                                <span class="time">${item.date}</span>
-                            </div>
+                    <a href="javascript:void(0);" class="notification-item" data-id="${item.notificationID}">
+                        <div class="notif-icon notif-${item.type} ${item.status}">
+                            <i class="la ${item.status === true ? 'la-check-circle' : 'la-bell'}"></i>
+                        </div>
+                        <div class="notif-content">
+                            <span class="block">
+                                ${item.description}
+                            </span>
+                            <span class="time">${item.date}</span>
+                        </div>
                     </a>`;
             });
-            $("#notification-list").html(notiHtml); // Update the inner HTML of the element
+            $("#notification-list").html(notiHtml);
+
+            // Bildirim öğelerine tıklama olayını ekle
+            $(".notification-item").click(function () {
+                var id = $(this).data("id");
+                $.ajax({
+                    url: `https://localhost:7083/api/Notification/NotificationStatusTrue?id=${id}`,
+                    method: 'GET',
+                    success: function (response) {
+                        console.log(response);
+                        // Bildirim okundu olarak işaretlendikten sonra UI'ı güncelle
+                        $(`a[data-id='${id}'] .notif-icon`).removeClass('unread').addClass('read');
+                        $(`a[data-id='${id}'] .notif-icon i`).removeClass('la-bell').addClass('la-check-circle');
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            });
         } else {
             console.error("Invalid data received:", data);
         }

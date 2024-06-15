@@ -1,7 +1,7 @@
 ﻿using System;
-namespace SignalR.DTOLayer.Notification
+namespace SignalRWebUI.Dtos.Notification
 {
-	public class UpdateNotificationDto
+	public class ResultNotificationDto
 	{
         public int NotificationID { get; set; }
         public string Type { get; set; }

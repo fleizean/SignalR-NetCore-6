@@ -1,0 +1,93 @@
+﻿@model List<SignalRWebUI.Dtos.Notification.ResultNotificationDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+@{
+    Dictionary<string, string> categoryColors = new Dictionary<string, string>
+{
+        { "primary", "#007bff" }, // Mavi
+        { "warning", "#ffc107" }, // Sarı
+        { "success", "#28a745" }, // Yeşil
+        { "danger", "#dc3545" },  // Kırmızı
+        { "info", "#17a2b8" },    // Açık mavi
+    };
+}
+
+
+<div class="container-fluid">
+    <h4 class="page-title">Notifikasyonlar</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Notifikasyon Listesi</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-sub">
+                        Notifikasyon işlemleri buradan gerçekleştirilir.
+                    </div>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Türü</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Tarih</th>
+                                <th scope="col">İkon</th>
+                                <th scope="col">Durumu</th>
+                                <th scope="col">Sil</th>
+                                <th scope="col">Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    var shortDescription = item.Description.Length > 15 ? item.Description.Substring(0, 15) + "..." : item.Description;
+                                    <tr>
+                                        <td>@item.NotificationID</td>
+                                        <td style="color: @(categoryColors.ContainsKey(item.Type) ? categoryColors[item.Type] : "#000000")">@item.Type</td>
+                                        <td>
+                                            <span id="shortDescription-@item.NotificationID">@shortDescription</span>
+                                            @if (item.Description.Length > 15)
+                                            {
+                                                <a href="#" data-toggle="collapse" data-target="#fullDescription-@item.NotificationID" aria-expanded="false" aria-controls="fullDescription-@item.NotificationID">Daha fazla</a>
+                                            }
+                                            <div id="fullDescription-@item.NotificationID" class="collapse">
+                                                @item.Description
+                                            </div>
+                                        </td>
+                                        <td>@item.Date.ToString("d MMMM yyyy HH:mm", new System.Globalization.CultureInfo("tr-TR"))</td>
+                                        <td><i class="@item.Icon" style="font-size:18px" aria-hidden="true"></i></td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:green">Aktif</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">Pasif</td>
+                                        }
+                                        <td><a href="/Notification/DeleteNotification/@item.NotificationID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
+                                        <td><a href="/Notification/UpdateNotification/@item.NotificationID" class="btn btn-outline-success">Güncelle</a></td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="color: red; font-size:14px">notifikasyon yok veya db bağlantısı reddedildi.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a href="/Notification/CreateNotification" class="btn btn-outline-primary">Notifikasyon Ekle</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

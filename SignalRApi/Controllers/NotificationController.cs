@@ -36,6 +36,20 @@ namespace SignalRApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("NotificationStatusTrue")]
+        public IActionResult NotificationStatusTrue(int id)
+        {
+            _notificationService.TNotificationStatusTrue(id);
+            return Ok("Notification status changed successfuly");
+        }
+
+        [HttpGet("NotificationStatusFalse")]
+        public IActionResult NotificationStatusFalse(int id)
+        {
+            _notificationService.TNotificationStatusFalse(id);
+            return Ok("Notification status changed successfuly");
+        }
+
         [HttpPost]
         public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
         {
@@ -45,7 +59,8 @@ namespace SignalRApi.Controllers
                 {
                     Type = createNotificationDto.Type,
                     Description = createNotificationDto.Description,
-                    Date = createNotificationDto.Date,
+                    Icon = createNotificationDto.Icon,
+                    Date = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
                     Status = createNotificationDto.Status
                 });
                 return Ok("Notification added successfuly");
@@ -73,6 +88,7 @@ namespace SignalRApi.Controllers
                 NotificationID = updateNotificationDto.NotificationID,
                 Type = updateNotificationDto.Type,
                 Description = updateNotificationDto.Description,
+                Icon = updateNotificationDto.Icon,
                 Date = updateNotificationDto.Date,
                 Status = updateNotificationDto.Status
             });

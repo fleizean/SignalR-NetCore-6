@@ -34,7 +34,6 @@
     <None Remove="Views\Testimonial\" />
     <None Remove="Dtos\TestimonialDtos\" />
     <None Remove="Views\Statistic\" />
-    <None Remove="ToDoList\" />
     <None Remove="Views\AdminStatistic\" />
     <None Remove="Views\Default\" />
     <None Remove="Views\UILayout\" />
@@ -57,6 +56,8 @@
     <None Remove="Dtos\BasketDtos\" />
     <None Remove="Dtos\MenuTableDtos\" />
     <None Remove="Views\BookATable\" />
+    <None Remove="Views\Notification\" />
+    <None Remove="Dtos\NotificationDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminLayout\" />
@@ -85,7 +86,6 @@
     <Folder Include="Views\Testimonial\" />
     <Folder Include="Dtos\TestimonialDtos\" />
     <Folder Include="Views\Statistic\" />
-    <Folder Include="ToDoList\" />
     <Folder Include="Views\AdminStatistic\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\UILayout\" />
@@ -108,6 +108,8 @@
     <Folder Include="Dtos\BasketDtos\" />
     <Folder Include="Dtos\MenuTableDtos\" />
     <Folder Include="Views\BookATable\" />
+    <Folder Include="Views\Notification\" />
+    <Folder Include="Dtos\NotificationDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
