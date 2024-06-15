@@ -31,12 +31,6 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateAbout(CreateAboutDto createAboutDto)
         {
-            About about = new About()
-            {
-                Title = createAboutDto.Title,
-                Description = createAboutDto.Description,
-                ImageUrl = createAboutDto.ImageUrl
-            };
             if (createAboutDto != null)
             {
                 _aboutService.TAdd(new About(){

@@ -22,6 +22,7 @@
     <None Remove="MenuTableDto\" />
     <None Remove="SliderDto\" />
     <None Remove="BasketDto\" />
+    <None Remove="Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AboutDto\" />
@@ -39,5 +40,6 @@
     <Folder Include="MenuTableDto\" />
     <Folder Include="SliderDto\" />
     <Folder Include="BasketDto\" />
+    <Folder Include="Notification\" />
   </ItemGroup>
 </Project>

@@ -36,52 +36,16 @@
                 <li class="nav-item dropdown hidden-caret">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="la la-bell"></i>
-                        <span class="notification">3</span>
+                        <span class="notification" id="passiveNotificationFirstCount">0</span>
                     </a>
                     <ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
                         <li>
-                            <div class="dropdown-title">4 yeni bildiriminiz var</div>
+                            <div class="dropdown-title" id="passiveNotificationCount"></div>
                         </li>
                         <li>
-                            <div class="notif-center">
-                                <a href="#">
-                                    <div class="notif-icon notif-primary"> <i class="la la-user-plus"></i> </div>
-                                    <div class="notif-content">
-                                        <span class="block">
-                                            New user registered
-                                        </span>
-                                        <span class="time">5 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-icon notif-success"> <i class="la la-comment"></i> </div>
-                                    <div class="notif-content">
-                                        <span class="block">
-                                            Rahmad commented on Admin
-                                        </span>
-                                        <span class="time">12 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-img">
-                                        <img src="~/Ready-Bootstrap-Dashboard-master/assets/img/profile2.jpg" alt="Img Profile">
-                                    </div>
-                                    <div class="notif-content">
-                                        <span class="block">
-                                            Reza send messages to you
-                                        </span>
-                                        <span class="time">12 minutes ago</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="notif-icon notif-danger"> <i class="la la-heart"></i> </div>
-                                    <div class="notif-content">
-                                        <span class="block">
-                                            Farrah liked Admin
-                                        </span>
-                                        <span class="time">17 minutes ago</span>
-                                    </div>
-                                </a>
+                            <div class="notif-center" id="notification-list">
+
+                                
                             </div>
                         </li>
                         <li>
@@ -118,3 +82,80 @@
         </div>
     </nav>
 </div>
+
+
+<script>
+$(document).ready(() => {
+    const { interval } = rxjs;
+    const { switchMap } = rxjs.operators;
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7083/SignalRHub")
+        .withAutomaticReconnect()
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.onclose(() => {
+        console.log("Connection closed");
+    });
+
+    connection.on("ReceiveNotifications", (data) => {
+        // Log the entire data object
+        console.log(data);
+
+        // Ensure the properties exist before accessing them
+        if (data) {
+            $("#passiveNotificationCount").text(data.passiveNotificationCount + " yeni bildiriminiz var!");
+            $("#passiveNotificationFirstCount").text(data.passiveNotificationCount);
+            var notiHtml = ``;
+            $.each(data.notificationList, (index, item) => {
+                notiHtml += `
+                    <a href="javascript:void(0);" class="notification-item" data-id="${item.notificationID}">
+                        <div class="notif-icon notif-${item.type} ${item.status}">
+                            <i class="la ${item.status === true ? 'la-check-circle' : 'la-bell'}"></i>
+                        </div>
+                        <div class="notif-content">
+                            <span class="block">
+                                ${item.description}
+                            </span>
+                            <span class="time">${item.date}</span>
+                        </div>
+                    </a>`;
+            });
+            $("#notification-list").html(notiHtml);
+
+            // Bildirim öğelerine tıklama olayını ekle
+            $(".notification-item").click(function () {
+                var id = $(this).data("id");
+                $.ajax({
+                    url: `https://localhost:7083/api/Notification/NotificationStatusTrue?id=${id}`,
+                    method: 'GET',
+                    success: function (response) {
+                        console.log(response);
+                        // Bildirim okundu olarak işaretlendikten sonra UI'ı güncelle
+                        $(`a[data-id='${id}'] .notif-icon`).removeClass('unread').addClass('read');
+                        $(`a[data-id='${id}'] .notif-icon i`).removeClass('la-bell').addClass('la-check-circle');
+                    },
+                    error: function (err) {
+                        console.error(err);
+                    }
+                });
+            });
+        } else {
+            console.error("Invalid data received:", data);
+        }
+    });
+
+    connection.start().then(() => {
+        console.log("Connection established and connected");
+
+        // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
+        interval(5000).pipe(
+            switchMap(() => connection.invoke("TakeNotifications").catch(err => console.error(err)))
+        ).subscribe();
+
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+</script>
