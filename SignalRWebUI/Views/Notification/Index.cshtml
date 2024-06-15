@@ -37,6 +37,7 @@
                                 <th scope="col">Tarih</th>
                                 <th scope="col">İkon</th>
                                 <th scope="col">Durumu</th>
+                                <th scope="col">Okundu/Okunmadı Değiştir</th>
                                 <th scope="col">Sil</th>
                                 <th scope="col">Güncelle</th>
                             </tr>
@@ -64,11 +65,23 @@
                                         <td><i class="@item.Icon" style="font-size:18px" aria-hidden="true"></i></td>
                                         @if (item.Status == true)
                                         {
-                                            <td style="color:green">Aktif</td>
+                                            <td style="color:green">Okundu</td>
                                         }
                                         else
                                         {
-                                            <td style="color:red">Pasif</td>
+                                            <td style="color:red">Okunmadı</td>
+                                        }
+                                        @if (item.Status)
+                                        {
+                                            <td>
+                                                <a href="/Notification/ChangeStatusNotification?id=@item.NotificationID&status=false" class="btn btn-outline-warning">Okunmadı Olarak İşaretle</a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <a href="/Notification/ChangeStatusNotification?id=@item.NotificationID&status=true" class="btn btn-outline-success">Okundu Olarak İşaretle</a>
+                                            </td>
                                         }
                                         <td><a href="/Notification/DeleteNotification/@item.NotificationID" class="btn btn-outline-danger" onclick="return confirm('Gerçekten silmek istiyor musunuz?')">Sil</a></td>
                                         <td><a href="/Notification/UpdateNotification/@item.NotificationID" class="btn btn-outline-success">Güncelle</a></td>
