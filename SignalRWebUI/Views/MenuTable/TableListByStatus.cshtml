@@ -7,11 +7,11 @@
 
 <div class="container-fluid">
     <h4 class="page-title">Masa Durumları</h4>
-    <div class="row">
+    <div class="row" id="menuList">
         @foreach (var item in Model)
             {
                     <div class="col-md-3">
-                        <div class="card card-stats @(item.Status == true ? "card-success" : "card-danger")">
+                        <div class="card card-stats @(item.Status == true ? "card-danger" : "card-success")">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-5">
@@ -49,28 +49,37 @@
             console.log("Connection closed");
         });
 
-        connection.on("ReceiveDashboardCounts", (data) => {
+    connection.on("ReceiveMenuTables", (data) => {
             // Log the entire data object
             console.log(data);
 
             // Ensure the properties exist before accessing them
             if (data) {
-                $("#categoryCount").text(data.categoryCount);
-                $("#productCount").text(data.productCount);
-                $("#activeCategoryCount").text(data.activeCategoryCount);
-                $("#passiveCategoryCount").text(data.passiveCategoryCount);
-                $("#highestProductName").text(data.highestProductName);
-                $("#lowestProductName").text(data.lowestProductName);
-                $("#productPriceAvg").text(data.productPriceAvg);
-                $("#atLeastValuableCategory").text(data.atLeastValuableCategory);
-                $("#mostValuableCategory").text(data.mostValuableCategory);
-                $("#lastOrderPrice").text(data.lastOrderPrice);
-                $("#totalActiveOrder").text(data.totalActiveOrder);
-                $("#tableCount").text(data.tableCount);
-                $("#totalPriceMoneyCase").text(data.totalPriceMoneyCase);
-                $("#lastDiscountProduct").text(data.lastDiscountProduct);
-                $("#mostDiscountAmount").text(data.mostDiscountAmount);
-                $("#todayTotalPrice").text(data.todayTotalPrice);
+                let tableHtml = '';
+                if (data.menuTableList) {
+                    data.menuTableList.forEach(menu => {
+                        tableHtml += `<div class="col-md-3">
+                            <div class="card card-stats ${menu.status == true ? "card-danger" : "card-success"}">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="fa-solid fa-table"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 d-flex align-items-center">
+                                            <div class="numbers">
+                                                <p class="card-category">${menu.name}</p>
+                                                <h4 class="card-title">${menu.status == true ? "Masa Dolu" : "Masa Boş"}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    $("#menuList").html(tableHtml);
+                }
 
 
 
@@ -79,16 +88,12 @@
             }
         });
 
-        connection.on("ReceiveDashboardCountsError", (data) => {
-            console.log(data);
-        });
-
         connection.start().then(() => {
             console.log("Connection established and connected");
 
             // RxJS interval operatörünü kullanarak her 5 saniyede bir sunucudan veri al
             interval(5000).pipe(
-                switchMap(() => connection.invoke("TakeDashboardCounts").catch(err => console.error(err)))
+                switchMap(() => connection.invoke("TakeMenuTableStatus").catch(err => console.error(err)))
 
             ).subscribe();
 
